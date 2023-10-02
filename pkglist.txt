@@ -14,3 +14,6 @@ tcpdump
 nmap
 fail2ban
 neovim
+exa
+fortune
+cowsay

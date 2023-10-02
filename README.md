@@ -24,7 +24,17 @@ These are deployed using GNU stow.
 `xargs -a pkglist.txt sudo apt install`
 
 6. Require public key authentication.
-`ssh-copy-id -i ~/.ssh/id_rsa.pub joonas@ip` on local machine
+`mkdir ~/.ssh`
+
+`chmod 700 ~/.ssh`
+
+`cd .ssh`
+
+`touch authorized_keys`
+
+`chmod 600 ~/.ssh/authorized_keys`
+
+`ssh-copy-id joonas@ip` on local machine
 
 
 7. Lock down SSH, preventing password & root logins, as well as locking SSH to particular IPs.
@@ -40,6 +50,20 @@ These are deployed using GNU stow.
 10. Install Logwatch to keep an eye. Monitors and logs emails for you.
 `apt-get install logwatch vim /etc/cron.daily/00logwatch`
 `/usr/sbin/logwatch --output mail --mailto test@gmail.com --detail high`
+
+11. Install oh-my-zsh and plugins
+`sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"`
+
+`git clone https://github.com/zsh-users/zsh-autosuggestions ~/.zsh/zsh-autosuggestions`
+
+`git clone https://github.com/zsh-users/zsh-syntax-highlighting.git`
+
+`echo "source ${(q-)PWD}/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" >> ${ZDOTDIR:-$HOME}/.zshrc`
+
+`source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh`
+
+`source ~/.zshrc`
+
 
 
 ## How to deploy a Server
