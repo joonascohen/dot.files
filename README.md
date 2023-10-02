@@ -30,6 +30,7 @@ These are deployed using GNU stow.
 `root ALL=(ALL) ALL joonas ALL=(ALL) ALL` comment all existing user/group grant lines and add this.
 
 9. Lock down SSH, preventing password & root logins, as well as locking SSH to particular IPs.
+`vim /etc/ssh/sshd\_config`
 `PermitRootLogin no PasswordAuthentication no AllowUsers joonas@(your-ip) joonas@(another-ip-if-any)`
 
 10. Restart ssh.
