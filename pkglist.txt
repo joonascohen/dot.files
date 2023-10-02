@@ -1,8 +1,6 @@
 zsh
 htop
-eva
 vnstat
-netstat
 stow
 curl
 btop
@@ -14,3 +12,5 @@ tty-clock
 tmux
 tcpdump
 nmap
+fail2ban
+neovim
