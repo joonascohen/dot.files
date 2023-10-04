@@ -35,3 +35,4 @@ These are deployed using GNU stow.
         - Add stow, curl to pkglist
     - Pop changes
         - install stow outside of pkglist
+        - Oh-my-zsh doesnt auto install
