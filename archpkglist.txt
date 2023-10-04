@@ -37,10 +37,8 @@ sudo
 tcpdump
 tldr
 tmux
-tty-clock-git
 ufw
 vim
 wget
 xorg-xinit
-yay-git
 zsh
