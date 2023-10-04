@@ -29,4 +29,7 @@ These are deployed using GNU stow.
 >These next steps are taken from "My First 5 Minutes on a server."
 
 ## What to work on
-- script the setup
+- script the setup, script for each os
+    - Ubuntu changes
+        - Download git first
+        - Add stow, curl to pkglist
