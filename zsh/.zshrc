@@ -103,7 +103,7 @@ source $ZSH/oh-my-zsh.sh
 alias l='exa'
 alias la='exa -a'
 alias ll='exa -lah'
-alias ls='exa -lh'
+alias ls='exa --color=auto'
 alias clock='tty-clock -cst -C1 -S'
 alias sps='sudo pacman -S'
 
