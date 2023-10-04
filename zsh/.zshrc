@@ -110,4 +110,5 @@ alias sps='sudo pacman -S'
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 fortune | cowsay
-curl "wttr.in?0" 
+# curl "wttr.in?0"
+. /usr/share/fzf/key-bindings.zsh
