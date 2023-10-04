@@ -33,3 +33,5 @@ These are deployed using GNU stow.
     - Ubuntu changes
         - Download git first
         - Add stow, curl to pkglist
+    - Pop changes
+        - install stow outside of pkglist
