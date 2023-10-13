@@ -1,0 +1,8 @@
+import:
+  - ~/.config/alacritty/themes/themes/github_dimmed.yaml
+
+font:
+  normal:
+    family: MonoLisa Nerd Font
+    style: Regular
+  size: 20
