@@ -1,5 +1,5 @@
 # My dotfiles
-> Mainly used for Arch Linux, but can be used for Ubunutu/Pop as wel
+> Mainly used for Arch Linux, but can be used for Ubuntu/Pop as well
 
 Once Arch Linux is installed:
 1. Pull this repo with `git clone https://github.com/joonascohen/dot.files`
