@@ -105,7 +105,8 @@ alias la='exa -a'
 alias ll='exa -lah'
 alias ls='exa --color=auto'
 alias clock='tty-clock -cst -C1 -S'
-alias sps='sudo pacman -S'
+alias sps='sudo pacman -Syu'
+alias ob='cd "/home/joonas/iCloud Drive/"'
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
