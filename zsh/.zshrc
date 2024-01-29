@@ -107,6 +107,7 @@ alias ls='exa --color=auto'
 alias clock='tty-clock -cst -C1 -S'
 alias sps='sudo pacman -Syu'
 alias ob='cd "/home/joonas/iCloud Drive/"'
+alias org='cd "/home/joonas/orgfiles"'
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
