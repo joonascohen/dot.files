@@ -42,3 +42,5 @@ vim
 wget
 xorg-xinit
 zsh
+redshift
+syncthing
