@@ -1,2 +1,5 @@
 joonascohen github https://github.com/joonascohen/dot.files
 Todoist https://app.todoist.com/app/today
+portainer http://192.168.1.147:9000/#!/auth
+uptime kuma http://192.168.1.147:3001/dashboard
+proxmox https://192.168.1.223:8006/#v1:0:18:4:::::::

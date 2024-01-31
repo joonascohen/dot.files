@@ -1,4 +1,7 @@
 return {
+  { "junegunn/goyo.vim" },
+  { "elzr/vim-json" },
+  { "plasticboy/vim-markdown" },
   {
     "iamcco/markdown-preview.nvim",
     cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },

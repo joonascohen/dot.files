@@ -44,3 +44,5 @@ xorg-xinit
 zsh
 redshift
 syncthing
+feh
+calcurse

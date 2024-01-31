@@ -11,5 +11,3 @@ Once Arch Linux is installed:
 - Markdown: marksman
 
 # TODO
-- Find the transparency options for hiding active window
-  - Picom
