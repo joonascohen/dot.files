@@ -49,16 +49,16 @@ floating_modifier $mod
 tiling_drag modifier titlebar
 
 # start a terminal
-bindsym $mod+Return exec alacritty 
+bindsym $mod+Return exec alacritty
 
 # kill focused window
 bindsym $mod+Shift+q kill
 
 # start dmenu (a program launcher)
 
-bindsym $mod+d exec "rofi -modes 'run,ssh' -show run"
+# bindsym $mod+d exec "rofi -modes 'run,ssh' -show run"
 
-# bindsym $mod+d exec --no-startup-id dmenu_run
+bindsym $mod+d exec --no-startup-id dmenu_run -fn 'MonoLisa Nerd font-14'
 
 # A more modern dmenu replacement is rofi:
 # bindcode $mod+40 exec "rofi -modi drun,run -show drun"

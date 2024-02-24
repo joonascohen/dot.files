@@ -22,6 +22,7 @@ return {
   { "sainnhe/everforest" },
   { "metalelf0/jellybeans-nvim" },
   { "NLKNguyen/papercolor-theme" },
+  { "HoNamDuong/hybrid.nvim" },
   {
     "folke/todo-comments.nvim",
     dependencies = { "nvim-lua/plenary.nvim" },
@@ -34,7 +35,11 @@ return {
   {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = "PaperColor",
+      colorscheme = "gruvbox",
+      background = "dark",
+      overrides = {
+        Normal = { bg = "#000000" },
+      },
     },
   },
   -- Org mode
@@ -72,6 +77,16 @@ return {
     dependencies = {
       "nvim-lua/plenary.nvim",
       -- 'nvim-treesitter/nvim-treesitter',
+    },
+  },
+  -- comments
+  {
+    "folke/todo-comments.nvim",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    opts = {
+      -- your configuration comes here
+      -- or leave it empty to use the default settings
+      -- refer to the configuration section below
     },
   },
 }

@@ -109,9 +109,14 @@ alias sps='sudo pacman -Syu'
 alias ob='cd "/home/joonas/iCloud Drive/"'
 alias org='cd "/home/joonas/orgfiles"'
 alias gs='git status'
+alias aq='asciiquarium'
+alias sc='cd "/home/joonas/Documents/Scripting/"'
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 calcurse -a | cowsay
 # curl "wttr.in?0"
 . /usr/share/fzf/key-bindings.zsh
+
+export FZF_DEFAULT_COMMAND="fd --type f"
+export FZF_DEFAULT_OPTS="--preview 'bat --color=always {}'"

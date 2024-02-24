@@ -47,3 +47,4 @@ syncthing
 feh
 calcurse
 xclip
+asciiquarium
