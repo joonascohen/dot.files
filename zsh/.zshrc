@@ -105,18 +105,29 @@ alias la='exa -a'
 alias ll='exa -lah'
 alias ls='exa --color=auto'
 alias clock='tty-clock -cst -C1 -S'
-alias sps='sudo pacman -Syu'
-alias ob='cd "/home/joonas/iCloud Drive/"'
-alias org='cd "/home/joonas/orgfiles"'
-alias gs='git status'
-alias aq='asciiquarium'
-alias sc='cd "/home/joonas/Documents/Scripting/"'
+alias nfzf="fzf --preview 'bat --style=numbers --color=always {}' | xargs -n1 nvim"
+alias fzf="fzf --preview 'bat --style=numbers --color=always {}'"
+alias fzf-tmux="fzf-tmux --preview 'bat --style=numbers --color=always {}' | xargs -n1 nvim"
+alias eza="eza --icons -o --git -a"
+alias ls="eza --color=always --long --no-filesize --icons=always --no-time --no-user --no-permissions"
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# fzf
+eval "$(fzf --zsh)"
+source /usr/share/fzf/key-bindings.zsh
 
-calcurse -a | cowsay
-# curl "wttr.in?0"
-. /usr/share/fzf/key-bindings.zsh
+_fzf_compgen_path() {
+  fd --hidden --exclude .git . "$1"
+}
+_fzf_compgen_dir() {
+  fd --type=d --hidden --exclude .git . "$1"
+}
 
-export FZF_DEFAULT_COMMAND="fd --type f"
-export FZF_DEFAULT_OPTS="--preview 'bat --color=always {}'"
+export FZF_CTRL_T_OPTS="--preview 'bat -n --color=always {}'"
+export FZF_ALT_C_OPTS="--preview 'eza --tree --color=always {} | head -200'"
+
+# bat theme
+# export BAT_THEME=gruvbox-dark
+
+# zoxide (cd)
+eval "$(zoxide init zsh)"
+alias cd="z"
