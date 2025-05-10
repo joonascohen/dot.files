@@ -131,3 +131,6 @@ export FZF_ALT_C_OPTS="--preview 'eza --tree --color=always {} | head -200'"
 # zoxide (cd)
 eval "$(zoxide init zsh)"
 alias cd="z"
+
+# fastfetch
+alias fastfetch="fastfetch -l arch_small --logo-color-1 blue -s OS:Kernel:Packages:Shell:WM:Terminal:Memory:Ram:Colors"

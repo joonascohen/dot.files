@@ -49,7 +49,7 @@ floating_modifier $mod
 tiling_drag modifier titlebar
 
 # start a terminal
-bindsym $mod+Return exec alacritty
+bindsym $mod+Return exec kitty
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -194,7 +194,7 @@ bindsym $mod+r mode "resize"
 # }
 
 # Wallpaper
-exec_always --no-startup-id feh --bg-scale /home/joonas/wallpapers/topo.png
+exec_always --no-startup-id feh --bg-scale /home/joonas/wallpapers/house.png
 
 # Polybar
 exec --no-startup-id redshift
@@ -210,8 +210,8 @@ default_border pixel 1
 client.focused #353439 #ffffff $7B9F35
 
 # Gappers
-gaps inner 2
-gaps outer 2
+gaps inner 5
+gaps outer 5
 
 # Assign Firefox to workspace 2
 assign [class="firefox"] $ws2
