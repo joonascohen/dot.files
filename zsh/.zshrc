@@ -134,3 +134,18 @@ alias cd="z"
 
 # fastfetch
 alias fastfetch="fastfetch -l arch_small --logo-color-1 blue -s OS:Kernel:Packages:Shell:WM:Terminal:Memory:Ram:Colors"
+
+# Weather with wttr.in
+alias localwx="curl wttr.in/Azusa\?0qp"
+alias weather="curl wttr.in/"
+alias weatheradv="curl v2d.wttr.in/"
+
+# suffix alias
+alias -s pdf=zathura
+
+# xclip alias
+alias copy="xclip -selection clipboard"
+
+# pacman alias
+alias upgrade="sudo pacman -Syu"
+alias clear-cache="sudo pacman -Scc"

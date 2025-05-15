@@ -6,6 +6,10 @@
 
 config_version: 2
 settings:
+  content.javascript.clipboard:
+    https://www.perplexity.ai: access-paste
+  content.notifications.enabled:
+    http://rom.psim.us: true
   fonts.default_size:
     global: 14pt
   scrolling.smooth:

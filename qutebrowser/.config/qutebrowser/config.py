@@ -2147,6 +2147,10 @@ c.url.default_page = "about:blank"
 ## qutebrowser`.
 ## Type: Dict
 # c.url.searchengines = {'DEFAULT': 'https://duckduckgo.com/?q={}'}
+c.url.searchengines = {
+    "DEFAULT": "https://www.google.com/search?q={}",
+    "yt": "https://www.youtube.com/results?search_query={}"
+}
 
 ## Page(s) to open at the start.
 ## Type: List of FuzzyUrl, or FuzzyUrl
