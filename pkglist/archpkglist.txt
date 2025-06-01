@@ -1,5 +1,4 @@
 ansible
-asciiquarium
 base
 base-devel
 bind
