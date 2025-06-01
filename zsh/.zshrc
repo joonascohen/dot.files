@@ -100,10 +100,10 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-alias l='exa'
-alias la='exa -a'
-alias ll='exa -lah'
-alias ls='exa --color=auto'
+alias l='eza -G --icons'
+alias la='eza -a'
+alias ll='eza -lah'
+alias ls='eza --color=auto'
 alias clock='tty-clock -cst -C1 -S'
 alias nfzf="fzf --preview 'bat --style=numbers --color=always {}' | xargs -n1 nvim"
 alias fzf="fzf --preview 'bat --style=numbers --color=always {}'"
@@ -149,3 +149,19 @@ alias copy="xclip -selection clipboard"
 # pacman alias
 alias upgrade="sudo pacman -Syu"
 alias clear-cache="sudo pacman -Scc"
+
+# weather
+alias ryan="mpv https://youtube.com/@ryanhallyall/live"
+alias max="mpv https://youtube.com/@maxvelocitywx/live"
+
+# chill beats
+alias lofi="mpv https://www.youtube.com/watch?v=jfKfPfyJRdk"
+
+# carl
+alias gcarl="carl && carl -a | grep $(date +%F)"
+
+# radar
+alias radar="curl -sSL https://radar.weather.gov/ridge/standard/CONUS-LARGE_loop.gif | feh -"
+
+# restart dunst
+alias redunst="pkill dunst && dunst &"
