@@ -421,3 +421,9 @@ current specifications.  This function also sets
 
 ;; beacon
 (setq beacon-mode 1)
+
+;; stars
+(setq org-hide-leading-stars t)
+(setq org-superstar-remove-leading-stars t)
+(setq org-hide-leading-stars nil) ; Ensure this is nil for org-superstar to work as intended
+(setq org-indent-mode-turns-on-hiding-stars nil) ; Prevents org-indent-mode from interfering

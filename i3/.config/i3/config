@@ -249,6 +249,9 @@ bindsym $mod+Shift+m exec /home/joonas/.scripts/mansplain
 # config
 bindsym $mod+Control+c exec /home/joonas/.scripts/editconfig/editconfig
 
+# config
+bindsym $mod+Control+s exec /home/joonas/.scripts/editscripts
+
 # volume
 bindsym $mod+Control+j exec /home/joonas/.scripts/volumecontrol 5%-
 bindsym $mod+Control+k exec /home/joonas/.scripts/volumecontrol 5%+
