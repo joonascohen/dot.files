@@ -1,22 +1,46 @@
+#+title: Config
+#+options: ':t toc:nil author:t email:t num:t
+#+PROPERTY: header-args :tangle /home/joonas/.config/doom/config.el
+
+#+begin_src emacs-lisp
 (setq user-full-name "Your Name"
       user-mail-address "your@email.com")
+#+end_src
 
+* UI
+** Font
+#+begin_src emacs-lisp
 (setq doom-font (font-spec :family "JetBrains Mono" :size 14 :weight 'normal))
 (after! doom-themes
 	(setq doom-themes-enable-bold t
 	      doom-themes-enable-italic t))
-
+#+end_src
+** Theme
+#+begin_src emacs-lisp
 (setq doom-theme 'doom-gruvbox)
-
+#+end_src
+** Relative Line Numbers
+#+begin_src emacs-lisp
 (setq display-line-numbers-type t)
-
+#+end_src
+** Transparency
+#+begin_src emacs-lisp
 (set-frame-parameter nil 'alpha-background 80)  ;; 90 = 90% opaque, 10% transparent
 (add-to-list 'default-frame-alist '(alpha-background . 80))
+#+end_src
 
+* ORG
+** Directory
+#+begin_src emacs-lisp
 (setq org-directory "~/org/")
-
+#+end_src
+** Emphasis Markers
+#+begin_src emacs-lisp
 (setq org-hide-emphasis-markers t)
-
+#+end_src
+** Org-roam
+*** Inital Setup
+#+begin_src emacs-lisp
 ;; Org Roam - setup from System Crafters Youtube
 (use-package org-roam
   :ensure t
@@ -72,6 +96,9 @@
   (org-roam-db-autosync-mode)
   (org-roam-setup))
 
+#+end_src
+*** Org-roam UI
+#+begin_src emacs-lisp
 (use-package! websocket
     :after org-roam)
 
@@ -87,8 +114,14 @@
           org-roam-ui-update-on-save t
           org-roam-ui-open-on-start t))
 
+#+end_src
+*** Adding to Agenda
+#+begin_src emacs-lisp
 (setq org-agenda-files (directory-files-recursively "~/org-roam" "~/.org"))
+#+end_src
 
+*** Backlinks
+#+begin_src emacs-lisp
 (setq org-roam-mode-sections
       (list #'org-roam-backlinks-section
             #'org-roam-reflinks-section
@@ -103,7 +136,9 @@
                (window-width . 0.33)
                (window-parameters . ((no-other-window . t)
                                      (no-delete-other-windows . t)))))
-
+#+end_src
+** Capture Templates
+#+begin_src emacs-lisp
 (after! org
   (add-to-list 'org-capture-templates
     '("w" "work" entry
@@ -115,20 +150,28 @@
         "* %U %? :MEETING: \n** Attendees\n-\n** Meetings Notes   :NOTE:\n-\n** Next Steps\n\n"
         :clock-in t :clock-resume t :jump-to-captured t)))
 
+#+end_src
+** Custom Faces
+*** Headers
+#+begin_src emacs-lisp
 ;; bold headers
 (custom-set-faces!
   '(org-level-1 :inherit outline-1 :weight bold)
   '(org-level-2 :inherit outline-2 :weight bold)
   '(org-level-3 :inherit outline-3 :weight bold)
   '(org-level-4 :inherit outline-4 :weight bold))
-
+#+end_src
+*** Agenda
+#+begin_src emacs-lisp
 (custom-set-faces!
   '(org-agenda-date :weight bold)
   '(org-agenda-date-today :weight bold)
   '(org-agenda-structure :weight bold)
   '(org-agenda-done :weight bold)
   '(org-agenda-todo :weight bold))
-
+#+end_src
+*** Document Title
+#+begin_src emacs-lisp
 (custom-theme-set-faces
  'user
 ;; '(org-level-1 ((t (:height 1.25 :weight bold))))
@@ -136,9 +179,14 @@
 ;; '(org-level-3 ((t (:height 1.1 :weight bold))))
 ;; '(org-level-4 ((t (:height 1.05 :weight bold))))
  '(org-document-title ((t (:height 1.5 :weight bold)))))
-
+#+end_src
+** Log Time
+#+begin_src emacs-lisp
 (setq org-log-done 'time)
-
+#+end_src
+** Agenda and Super Agenda
+*** Super Agenda
+#+begin_src emacs-lisp
 (setq org-M-RET-may-split-line '((default . nil)))
 (setq org-insert-heading-respect-content t)
 (setq org-log-into-drawer t)
@@ -181,14 +229,23 @@
   :config
   (org-super-agenda-mode))
 
+#+end_src
+*** Ignore scheduled
+#+begin_src emacs-lisp
 (setq org-agenda-todo-ignore-scheduled 'future)
-
+#+end_src
+*** Agenda Custom Commands
+#+begin_src emacs-lisp
 (setq org-agenda-custom-commands
       '(("d" "Daily Agenda"
          ((agenda "" (org-agenda-span 'day))))))
-
+#+end_src
+*** Agenda Files
+#+begin_src emacs-lisp
 (setq org-agenda-files '("~/org" "~/org-roam"))
-
+#+end_src
+** Tags
+#+begin_src emacs-lisp
 (setq org-tag-alist
       '(
         ("meeting" . ?m)
@@ -198,11 +255,19 @@
         ("band" . ?b)
         ("dogs" . ?d)
         ))
-
+#+end_src
+** Habits
+*** Graph Column
+#+begin_src emacs-lisp
 (setq org-habit-graph-column 60)
-
+#+end_src
+** Exports
+#+begin_src emacs-lisp
 (setq org-export-with-broken-links t)
-
+#+end_src
+** Column View
+Switching column view from slawomir-grochowski. Using *x* to switch between multiple columns
+#+begin_src emacs-lisp
 (defun org-columns-switch-columns ()
   (interactive)
   (save-excursion
@@ -255,7 +320,10 @@ current specifications.  This function also sets
 
 (with-eval-after-load 'org
   (advice-add 'org-columns-get-format :override 'my/org-columns-get-format))
+#+end_src
 
+* Keybinds
+#+begin_src emacs-lisp
 (global-set-key (kbd "C-c C-a") 'org-agenda)
 (global-set-key (kbd "C-c C-l") 'org-store-link)
 (global-set-key (kbd "C-c C-c") 'org-capture)
@@ -268,39 +336,67 @@ current specifications.  This function also sets
 (global-set-key (kbd "C-c m") 'elfeed-tube-mpv)
 (global-set-key (kbd "C-c f") 'org-ql-find-in-agenda)
 (global-set-key (kbd "C-c C-g") 'consult-grep)
+#+end_src
 
+* Emacs
+** Registers
+#+begin_src emacs-lisp
 (set-register ?w (cons 'file "~/org/work-log.org"))
-
+#+end_src
+** Line Numbers
+Removes line numbers from org files
+#+begin_src emacs-lisp
 (display-line-numbers-mode nil)
 (add-hook 'org-mode-hook #'doom-disable-line-numbers-h)
 (add-hook 'org-mode-hook (lambda () (display-line-numbers-mode 0)))
-
+#+end_src
+** Fringe Mode
+Removes the *~* from org files.
+#+begin_src emacs-lisp
 (vi-tilde-fringe-mode -1)
 (remove-hook 'org-mode-hook #'vi-tilde-fringe-mode)
 (add-hook 'org-mode-hook (lambda () (set-fringe-mode 0)))
-
+#+end_src
+** Diary
+#+begin_src emacs-lisp
 (setq org-agenda-include-diary t)
 (setq diary-file "~/org/diary.org")
 (setq calendar-view-diary-initially-flag t
       diary-number-of-entries 7
       diary-display-function #'diary-fancy-display)
 (add-hook 'calendar-today-visible-hook 'calendar-mark-today)
+#+end_src
 
+* Other Packages
+** Consult
+#+begin_src emacs-lisp
 (use-package consult-org-roam
   :bind(("C-c o" . consult-org-roam-search ))
   )
+#+end_src
+** Elfeed
+#+begin_src emacs-lisp
 
-
-
+#+end_src
+** Org Download
+*** Require
+#+begin_src emacs-lisp
 (require 'org-download)
-
+#+end_src
+** Elfeed
+*** Require
+#+begin_src emacs-lisp
 (require 'elfeed)
-
+#+end_src
+*** Feeds
+#+begin_src emacs-lisp
 (setq elfeed-feeds
       '(("http://www.spc.noaa.gov/products/spcrss.xml" weather)
         "https://www.youtube.com/feeds/videos.xml?channel_id=UCcaTUtGzOiS4cqrgtcsHYWg"
         "https://www.youtube.com/feeds/videos.xml?channel_id=UC2eYFnH61tmytImy1mTYvhA"))
-
+#+end_src
+*** elfeed-org
+#+begin_src emacs-lisp
 (use-package elfeed-org
   :ensure t
   :init
@@ -312,7 +408,9 @@ current specifications.  This function also sets
   :config
   (elfeed-org)
   )
-
+#+end_src
+*** Elfeed Tube and MPV
+#+begin_src emacs-lisp
 (use-package elfeed-tube
   :ensure t ;; or :straight t
   :after elfeed
@@ -334,12 +432,22 @@ current specifications.  This function also sets
               ("C-c C-f" . elfeed-tube-mpv-follow-mode)
               ("C-c C-w" . elfeed-tube-mpv-where)))
 
+#+end_src
+** Bullets
+#+begin_src emacs-lisp
 (require 'org-bullets)
 (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
-
+#+end_src
+** Beacon
+#+begin_src emacs-lisp
 (setq beacon-mode 1)
-
+#+end_src
+** Contacts
+#+begin_src emacs-lisp
 (require 'org-contacts)
 (setq org-contacts-files '("~/org/contacts.org"))
+#+end_src
+** Yas Snippet
+#+begin_src emacs-lisp
 
-
+#+end_src

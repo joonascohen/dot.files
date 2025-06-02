@@ -64,3 +64,8 @@
 (package! elfeed-tube-mpv)
 (package! beacon)
 (package! org-bullets)
+(package! org-superstar)
+(package! org-contrib)
+(package! vertico)
+(package! marginalia)
+(package! ox-twbs)
