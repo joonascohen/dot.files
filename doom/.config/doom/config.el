@@ -1,17 +1,33 @@
-(setq user-full-name "Your Name"
-      user-mail-address "your@email.com")
-
-(setq doom-font (font-spec :family "JetBrains Mono" :size 14 :weight 'normal))
+(setq doom-font (font-spec :family "Iosevka Comfy Duo" :size 16)
+      doom-variable-pitch-font (font-spec :family "Iosevka Aile" :size 16)
+      doom-big-font (font-spec :family "Iosevka Term" :size 24 :weight 'semibold))
+;; (setq doom-font "Iosevka Term-14")
 (after! doom-themes
-	(setq doom-themes-enable-bold t
-	      doom-themes-enable-italic t))
+  (setq doom-themes-enable-bold t
+        doom-themes-enable-italic t))
 
-(setq doom-theme 'doom-gruvbox)
+;; (setq doom-theme 'doom-gruvbox)
+(setq doom-theme 'ef-duo-light)
 
 (setq display-line-numbers-type t)
 
 (set-frame-parameter nil 'alpha-background 80)  ;; 90 = 90% opaque, 10% transparent
 (add-to-list 'default-frame-alist '(alpha-background . 80))
+
+(setq display-buffer-alist
+      '(
+        ("\\*Consult\\*"
+         (display-buffer-reuse-mode-window
+          display-buffer-below-selected)
+         (window-height . fit-window-to-buffer)
+         )))
+
+(add-to-list 'display-buffer-alist
+        '("\\magit:"
+         (display-buffer-reuse-mode-window
+          display-buffer-below-selected)
+        (window-height . fit-window-to-buffer)
+        (dedicated . t)))
 
 (setq org-directory "~/org/")
 
@@ -87,7 +103,7 @@
           org-roam-ui-update-on-save t
           org-roam-ui-open-on-start t))
 
-(setq org-agenda-files (directory-files-recursively "~/org-roam" "~/.org"))
+(setq org-agenda-files (directory-files-recursively "~/org-roam" "~/.org" "~/.config/doom"))
 
 (setq org-roam-mode-sections
       (list #'org-roam-backlinks-section
@@ -172,12 +188,20 @@
                                   :tag "config"
                                   :date today)
 			 (:discard (:anything))))))))
-      ("c" "Config view"
-         ((tags-todo "config"
-           ((org-agenda-verriding-header "Configurations to do")
-            (org-super-aenda-groups
-             '((:name "Cnfigs to do"
-                :tag "config")))))))))
+        ("c" "Config view"
+            ((tags-todo "config"
+            ((org-agenda-verriding-header "Configurations to do")
+                (org-super-aenda-groups
+                '((:name "Cnfigs to do"
+                    :tag "config")))))))
+        ("o" "Overdue tasks"
+                agenda ""
+                ((org-super-agenda-groups
+                '((:name "Overdue"
+                            :and (:not (:todo "DONE")
+                                    (:scheduled past))
+                            :and (:not (:todo "DONE")
+                                    (:deadline past)))))))))
   :config
   (org-super-agenda-mode))
 
@@ -186,8 +210,6 @@
 (setq org-agenda-custom-commands
       '(("d" "Daily Agenda"
          ((agenda "" (org-agenda-span 'day))))))
-
-(setq org-agenda-files '("~/org" "~/org-roam"))
 
 (setq org-tag-alist
       '(
@@ -266,8 +288,11 @@ current specifications.  This function also sets
 (global-set-key (kbd "C-c b") 'org-mark-ring-goto)
 (global-set-key (kbd "C-c i") 'org-download-clipboard)
 (global-set-key (kbd "C-c m") 'elfeed-tube-mpv)
-(global-set-key (kbd "C-c f") 'org-ql-find-in-agenda)
 (global-set-key (kbd "C-c C-g") 'consult-grep)
+
+(after! org
+(map! :leader
+      :desc "QL Agenda Search" "f a" #'org-ql-find-in-agenda))
 
 (set-register ?w (cons 'file "~/org/work-log.org"))
 

@@ -8,10 +8,10 @@
    '("\\`https://fniessen\\.github\\.io/org-html-themes/org/theme-readtheorg\\.setup\\'"))
  '(package-selected-packages
    '(anti-zenburn-theme beacon ef-themes elfeed-org elfeed-tube elfeed-tube-mpv
-     ewal-spacemacs-themes gruvbox-theme helm-org-ql leuven-theme lsp-mode
-     markdownfmt minimap org-bullets org-contacts org-contrib org-download
-     org-roam org-super-agenda ox-twbs ox-twiki solarized-gruvbox-theme
-     spacemacs-theme zenburn-theme)))
+     ewal-spacemacs-themes fontaine gruvbox-theme helm-org-ql leuven-theme
+     lsp-mode markdownfmt minimap modus-themes org-bullets org-contacts
+     org-contrib org-download org-roam org-super-agenda ox-twbs ox-twiki
+     solarized-gruvbox-theme solo-jazz-theme spacemacs-theme zenburn-theme)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

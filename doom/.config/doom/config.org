@@ -1,25 +1,32 @@
 #+title: Config
-#+options: ':t toc:nil author:t email:t num:t
+#+OPTIONS: ':t toc:nil author:t email:t num:f
 #+PROPERTY: header-args :tangle /home/joonas/.config/doom/config.el
-
-#+begin_src emacs-lisp
-(setq user-full-name "Your Name"
-      user-mail-address "your@email.com")
-#+end_src
-
+* Information and help
+Inspriation came from [[https://www.youtube.com/watch?v=ycyxytk1NAQ][protesilaos]] to start the literate org configuration. This is used with the =literate= flag in my doom =init.el=, so everytime I save the page or reload my configuration, it will run =org-babel-tangle= to the correct files.
+* Tasks
+** DONE =Test= edit config :config:
+CLOSED: [2025-06-02 Mon 13:10] SCHEDULED: <2025-06-02 Mon>
+** DONE Figure out Iosevka Font issues :config:
+CLOSED: [2025-06-02 Mon 19:27] SCHEDULED: <2025-06-03 Tue>
+[[id:d8757cb2-2f84-489d-a5a7-f572dab078f4][Font Troubleshooting]]
 * UI
 ** Font
 #+begin_src emacs-lisp
-(setq doom-font (font-spec :family "JetBrains Mono" :size 14 :weight 'normal))
+(setq doom-font (font-spec :family "Iosevka Comfy Duo" :size 16)
+      doom-variable-pitch-font (font-spec :family "Iosevka Aile" :size 16)
+      doom-big-font (font-spec :family "Iosevka Term" :size 24 :weight 'semibold))
+;; (setq doom-font "Iosevka Term-14")
 (after! doom-themes
-	(setq doom-themes-enable-bold t
-	      doom-themes-enable-italic t))
+  (setq doom-themes-enable-bold t
+        doom-themes-enable-italic t))
 #+end_src
 ** Theme
 #+begin_src emacs-lisp
-(setq doom-theme 'doom-gruvbox)
+;; (setq doom-theme 'doom-gruvbox)
+(setq doom-theme 'ef-duo-light)
 #+end_src
 ** Relative Line Numbers
+*NOTE:* setting this to relative will break the configuration
 #+begin_src emacs-lisp
 (setq display-line-numbers-type t)
 #+end_src
@@ -29,17 +36,40 @@
 (add-to-list 'default-frame-alist '(alpha-background . 80))
 #+end_src
 
+** Buffer Control
+*** Consult
+#+begin_src emacs-lisp
+(setq display-buffer-alist
+      '(
+        ("\\*Consult\\*"
+         (display-buffer-reuse-mode-window
+          display-buffer-below-selected)
+         (window-height . fit-window-to-buffer)
+         )))
+#+end_src
+*** Magit
+#+begin_src emacs-lisp
+(add-to-list 'display-buffer-alist
+        '("\\magit:"
+         (display-buffer-reuse-mode-window
+          display-buffer-below-selected)
+        (window-height . fit-window-to-buffer)
+        (dedicated . t)))
+#+end_src
 * ORG
 ** Directory
+Setting the org directory.
 #+begin_src emacs-lisp
 (setq org-directory "~/org/")
 #+end_src
 ** Emphasis Markers
+Hiding the markers for *bold*, /italize/, and =highlight=.
 #+begin_src emacs-lisp
 (setq org-hide-emphasis-markers t)
 #+end_src
 ** Org-roam
 *** Inital Setup
+Setting up my initial templates and keybinds for org-roam.
 #+begin_src emacs-lisp
 ;; Org Roam - setup from System Crafters Youtube
 (use-package org-roam
@@ -98,6 +128,7 @@
 
 #+end_src
 *** Org-roam UI
+Org-roam UI setup to get a Obsidian graph-like view running locally.
 #+begin_src emacs-lisp
 (use-package! websocket
     :after org-roam)
@@ -116,11 +147,12 @@
 
 #+end_src
 *** Adding to Agenda
+Adding org-roam to the agenda files directory so they can be searchable.
 #+begin_src emacs-lisp
-(setq org-agenda-files (directory-files-recursively "~/org-roam" "~/.org"))
+(setq org-agenda-files (directory-files-recursively "~/org-roam" "~/.org" "~/.config/doom"))
 #+end_src
-
 *** Backlinks
+Enabling the backlinks view through org-roam, toggle with *C-c n l*.
 #+begin_src emacs-lisp
 (setq org-roam-mode-sections
       (list #'org-roam-backlinks-section
@@ -138,6 +170,7 @@
                                      (no-delete-other-windows . t)))))
 #+end_src
 ** Capture Templates
+My currrent capture templates. The work log works like the general journal doom emacs template, where it will add the date and timestamp into a tree, sorted by year -> month -> day. My meeting template takes advantage of org timetracking to track my meeting times. It clocks in when I start the meeting, and clocks out when I close the buffer.
 #+begin_src emacs-lisp
 (after! org
   (add-to-list 'org-capture-templates
@@ -153,6 +186,7 @@
 #+end_src
 ** Custom Faces
 *** Headers
+Setting headers to bold, some themes don't set it for some reason.
 #+begin_src emacs-lisp
 ;; bold headers
 (custom-set-faces!
@@ -162,6 +196,7 @@
   '(org-level-4 :inherit outline-4 :weight bold))
 #+end_src
 *** Agenda
+Setting the agenda items to bold.
 #+begin_src emacs-lisp
 (custom-set-faces!
   '(org-agenda-date :weight bold)
@@ -171,6 +206,7 @@
   '(org-agenda-todo :weight bold))
 #+end_src
 *** Document Title
+Setting the title of documents to be a little bit bigger.
 #+begin_src emacs-lisp
 (custom-theme-set-faces
  'user
@@ -181,11 +217,13 @@
  '(org-document-title ((t (:height 1.5 :weight bold)))))
 #+end_src
 ** Log Time
+Shows a timestamp whenever a task is toggle as completed
 #+begin_src emacs-lisp
 (setq org-log-done 'time)
 #+end_src
 ** Agenda and Super Agenda
 *** Super Agenda
+Super agenda setup to trigger with d.
 #+begin_src emacs-lisp
 (setq org-M-RET-may-split-line '((default . nil)))
 (setq org-insert-heading-respect-content t)
@@ -220,12 +258,20 @@
                                   :tag "config"
                                   :date today)
 			 (:discard (:anything))))))))
-      ("c" "Config view"
-         ((tags-todo "config"
-           ((org-agenda-verriding-header "Configurations to do")
-            (org-super-aenda-groups
-             '((:name "Cnfigs to do"
-                :tag "config")))))))))
+        ("c" "Config view"
+            ((tags-todo "config"
+            ((org-agenda-verriding-header "Configurations to do")
+                (org-super-aenda-groups
+                '((:name "Cnfigs to do"
+                    :tag "config")))))))
+        ("o" "Overdue tasks"
+                agenda ""
+                ((org-super-agenda-groups
+                '((:name "Overdue"
+                            :and (:not (:todo "DONE")
+                                    (:scheduled past))
+                            :and (:not (:todo "DONE")
+                                    (:deadline past)))))))))
   :config
   (org-super-agenda-mode))
 
@@ -239,10 +285,6 @@
 (setq org-agenda-custom-commands
       '(("d" "Daily Agenda"
          ((agenda "" (org-agenda-span 'day))))))
-#+end_src
-*** Agenda Files
-#+begin_src emacs-lisp
-(setq org-agenda-files '("~/org" "~/org-roam"))
 #+end_src
 ** Tags
 #+begin_src emacs-lisp
@@ -334,9 +376,15 @@ current specifications.  This function also sets
 (global-set-key (kbd "C-c b") 'org-mark-ring-goto)
 (global-set-key (kbd "C-c i") 'org-download-clipboard)
 (global-set-key (kbd "C-c m") 'elfeed-tube-mpv)
-(global-set-key (kbd "C-c f") 'org-ql-find-in-agenda)
 (global-set-key (kbd "C-c C-g") 'consult-grep)
+
+(after! org
+(map! :leader
+      :desc "QL Agenda Search" "f a" #'org-ql-find-in-agenda))
 #+end_src
+
+#+RESULTS:
+: org-ql-find-in-agenda
 
 * Emacs
 ** Registers
@@ -368,6 +416,34 @@ Removes the *~* from org files.
 #+end_src
 
 * Other Packages
+** Package Install
+#+begin_src emacs-lisp :tangle /home/joonas/.config/doom/packages.el
+(package! org-roam)
+(package! org-roam-ui)
+(package! org-super-agenda)
+(package! color-theme-sanityinc-tomorrow)
+(package! flatland-theme)
+(package! org-modern)
+(package! org-ql)
+(package! org-timeblock)
+(package! markdown-mode)
+(package! elfeed-org)
+(package! org-download)
+(package! elfeed-org)
+(package! elfeed-tube)
+(package! elfeed-tube-mpv)
+(package! beacon)
+(package! org-bullets)
+(package! org-superstar)
+(package! org-contrib)
+(package! org-contacts)
+(package! vertico)
+(package! marginalia)
+(package! ox-twbs)
+(package! ef-themes)
+(package! fontaine)
+(package! spacemacs-theme)
+#+end_src
 ** Consult
 #+begin_src emacs-lisp
 (use-package consult-org-roam
