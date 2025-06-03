@@ -23,3 +23,8 @@
 (package! ef-themes)
 (package! fontaine)
 (package! spacemacs-theme)
+(package! gruvbox-theme)
+(package! org-inline-pdf)
+(package! zenburn-theme)
+(package! hc-zenburn-theme)
+(package! anti-zenburn-theme)

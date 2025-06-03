@@ -1,5 +1,5 @@
-(setq doom-font (font-spec :family "Iosevka Comfy Duo" :size 16)
-      doom-variable-pitch-font (font-spec :family "Iosevka Aile" :size 16)
+(setq doom-font (font-spec :family "Iosevka Term" :size 16 :weight 'medium)
+      doom-variable-pitch-font (font-spec :family "Iosevka Comfy Duo" :size 16 :weight 'medium)
       doom-big-font (font-spec :family "Iosevka Term" :size 24 :weight 'semibold))
 ;; (setq doom-font "Iosevka Term-14")
 (after! doom-themes
@@ -7,7 +7,14 @@
         doom-themes-enable-italic t))
 
 ;; (setq doom-theme 'doom-gruvbox)
-(setq doom-theme 'ef-duo-light)
+;; (setq doom-theme 'ef-duo-light)
+;; (setq doom-theme 'gruvbox-dark-soft)
+(setq doom-theme 'leuven)
+
+;; (setq leuven-scale-org-agenda-structure nil)
+;; (setq leuven-scale-org-document-title nil)
+(setq leuven-scale-outline-headlines nil)
+(load-theme 'leuven t)
 
 (setq display-line-numbers-type t)
 
@@ -16,7 +23,7 @@
 
 (setq display-buffer-alist
       '(
-        ("\\*Consult\\*"
+        ("\\*org-capture\\*"
          (display-buffer-reuse-mode-window
           display-buffer-below-selected)
          (window-height . fit-window-to-buffer)
@@ -121,15 +128,29 @@
                                      (no-delete-other-windows . t)))))
 
 (after! org
+  (add-to-list 'org-capture-templates '("k" "Mineral King"))
   (add-to-list 'org-capture-templates
-    '("w" "work" entry
-      (file+datetree "~/org/work-log.org")
-      "* %U %?\n%i\n%a" :kill-buffer t))
-    (add-to-list 'org-capture-templates
-        '("m" "Meeting" entry
+      '("km" "Mineral Meeting" entry
+        (file+headline "~/org/mk.org" "Meetings")
+        "* TODO %^{Enter Mineral King Meeting: }\n SCHEDULED: %^t\n" :kill-buffer t))
+  (add-to-list 'org-capture-templates
+      '("kg" "Gig" entry
+        (file+headline "~/org/mk.org" "Gigs and Events")
+        "* TODO %^{Enter Mineral King Gig: }\n SCHEDULED: %^t\n" :kill-buffer t))
+  (add-to-list 'org-capture-templates '("w" "Work"))
+  (add-to-list 'org-capture-templates
+      '("ww" "work entry" entry
         (file+datetree "~/org/work-log.org")
-        "* %U %? :MEETING: \n** Attendees\n-\n** Meetings Notes   :NOTE:\n-\n** Next Steps\n\n"
-        :clock-in t :clock-resume t :jump-to-captured t)))
+        "* %U %?\n%i\n%a" :kill-buffer t))
+  (add-to-list 'org-capture-templates
+      '("wt" "work task" entry
+        (file+headline "~/org/worktasks.org" "Tasks")
+        "* TODO %?\n SCHEDULED: %^t\n%i\n%a" :kill-buffer t))
+  (add-to-list 'org-capture-templates
+        '("wm" "Meeting" entry
+          (file+datetree "~/org/work-log.org")
+          "* %U %^{What meeting?|%?|CRQ Meeting|SysOps Call|Joel One-on-One|RDM Weekly Touchbase|Bofa Team Discussion|RDM Team Briefings|SysOps TAR} :meeting: \n** Attendees\n-\n** Meetings Notes   :NOTE:\n-\n** Next Steps\n\n"
+          :clock-in t :clock-resume t :jump-to-captured t)))
 
 ;; bold headers
 (custom-set-faces!
@@ -177,16 +198,16 @@
                          '((:name "Today"
                                   :time-grid t
                                   :date today
-                                  :scheduled today
                                   :order 1)
                            (:name "Bills"
                                   :date today
-                                  :scheduled today
                                   :tag "bills"
                                   :order 2)
                            (:name "Configuration"
                                   :tag "config"
                                   :date today)
+                           (:name "Done"
+                                  :todo "DONE")
 			 (:discard (:anything))))))))
         ("c" "Config view"
             ((tags-todo "config"
@@ -206,10 +227,6 @@
   (org-super-agenda-mode))
 
 (setq org-agenda-todo-ignore-scheduled 'future)
-
-(setq org-agenda-custom-commands
-      '(("d" "Daily Agenda"
-         ((agenda "" (org-agenda-span 'day))))))
 
 (setq org-tag-alist
       '(
@@ -314,8 +331,6 @@ current specifications.  This function also sets
 (use-package consult-org-roam
   :bind(("C-c o" . consult-org-roam-search ))
   )
-
-
 
 (require 'org-download)
 
