@@ -14,9 +14,11 @@
 ;; (setq leuven-scale-org-agenda-structure nil)
 ;; (setq leuven-scale-org-document-title nil)
 (setq leuven-scale-outline-headlines nil)
-(load-theme 'leuven t)
+(setq leuven-dark-scale-outline-headlines nil)
+(load-theme 'leuven-dark t)
 
 (setq display-line-numbers-type t)
+(setq line-number-mode nil)
 
 (set-frame-parameter nil 'alpha-background 80)  ;; 90 = 90% opaque, 10% transparent
 (add-to-list 'default-frame-alist '(alpha-background . 80))
@@ -36,7 +38,20 @@
         (window-height . fit-window-to-buffer)
         (dedicated . t)))
 
+(after! doom-modeline
+  ;; Customize the display to show date and time
+  (setq display-time-string-forms
+        '((propertize
+           (concat
+            " 📅 " year "/" month "/" day   ; e.g., 06/05/2025
+            " 🕘 " 24-hours ":" minutes)))) ; e.g., 20:22
+  (display-time-mode 1))
+
 (setq org-directory "~/org/")
+
+;; (after! org
+    ;; (setq org-todo-keywords
+        ;; '((sequence "TODO" "WAIT" "|" "DONE" "CANCELED"))))
 
 (setq org-hide-emphasis-markers t)
 
@@ -110,7 +125,7 @@
           org-roam-ui-update-on-save t
           org-roam-ui-open-on-start t))
 
-(setq org-agenda-files (directory-files-recursively "~/org-roam" "~/.org" "~/.config/doom"))
+(setq org-agenda-files '("~/org" "~/org-roam" "~/.config/doom"))
 
 (setq org-roam-mode-sections
       (list #'org-roam-backlinks-section
@@ -128,6 +143,28 @@
                                      (no-delete-other-windows . t)))))
 
 (after! org
+  (add-to-list 'org-capture-templates '("e" "Eating"))
+  (add-to-list 'org-capture-templates
+      '("eb" "breakfast" entry
+        (file+datetree "~/org/eating.org")
+        "* %U %? :breakfast:\n:PROPERTIES:\n:BREAKFAST: [X]\n:END:" :kill-buffer t))
+  (add-to-list 'org-capture-templates
+      '("el" "lunch" entry
+        (file+datetree "~/org/eating.org")
+        "* %U %? :lunch:\n:PROPERTIES:\n:LUNCr: [X]\n:END:" :kill-buffer t))
+  (add-to-list 'org-capture-templates
+      '("ed" "dinner" entry
+        (file+datetree "~/org/eating.org")
+        "* %U %? :dinner:\n:PROPERTIES:\n:DINNER: [X]\n:END:" :kill-buffer t))
+  (add-to-list 'org-capture-templates
+      '("es" "Shopping" entry
+        (file+datetree "~/org/eating.org")
+        "* %U %? :shopping:\n:PROPERTIES:\n:SHOPPING: %^{What store?|%?|Staters|Sprouts}\n:END:" :kill-buffer t))
+  (add-to-list 'org-capture-templates '("W" "Weather Watching"))
+  (add-to-list 'org-capture-templates
+      '("WW" "weather entry" entry
+        (file+datetree "~/org/weatherwatching.org")
+        "* %U %?\n:PROPERTIES:\n:RAIN: %^{Rain?||[X]|}\n:TORNADO: %^{Tornado?||[X]}\n:HURRICANE: %^{Hurricane?||[X]}\n:END:":kill-buffer t))
   (add-to-list 'org-capture-templates '("k" "Mineral King"))
   (add-to-list 'org-capture-templates
       '("km" "Mineral Meeting" entry
@@ -149,7 +186,7 @@
   (add-to-list 'org-capture-templates
         '("wm" "Meeting" entry
           (file+datetree "~/org/work-log.org")
-          "* %U %^{What meeting?|%?|CRQ Meeting|SysOps Call|Joel One-on-One|RDM Weekly Touchbase|Bofa Team Discussion|RDM Team Briefings|SysOps TAR} :meeting: \n** Attendees\n-\n** Meetings Notes   :NOTE:\n-\n** Next Steps\n\n"
+          "* %U %^{What meeting?|%?|CRQ Meeting|SysOps Call|Joel One-on-One|RDM Weekly Touchbase|Bofa Team Discussion|RDM Team Briefings|SysOps TAR} :@meeting: \n** Attendees\n-\n** Meetings Notes   :@note:\n-\n** Next Steps\n\n"
           :clock-in t :clock-resume t :jump-to-captured t)))
 
 ;; bold headers
@@ -174,6 +211,8 @@
 ;; '(org-level-4 ((t (:height 1.05 :weight bold))))
  '(org-document-title ((t (:height 1.5 :weight bold)))))
 
+(setq org-agenda-start-with-log-mode 't)
+
 (setq org-log-done 'time)
 
 (setq org-M-RET-may-split-line '((default . nil)))
@@ -189,11 +228,12 @@
       org-agenda-block-separator nil
       org-agenda-compact-blocks t
       org-agenda-start-day nil ;; i.e. today
-      org-agenda-span 1
+      org-deadline-warning-days 7
       org-agenda-start-on-weekday nil)
   (setq org-agenda-custom-commands
         '(("d" "Simple day view"
            ((agenda "" ((org-agenda-overriding-header "")
+                        (org-agenda-span 1)
                         (org-super-agenda-groups
                          '((:name "Today"
                                   :time-grid t
@@ -202,19 +242,69 @@
                            (:name "Bills"
                                   :date today
                                   :tag "bills"
-                                  :order 2)
+                                  :order 3)
                            (:name "Configuration"
                                   :tag "config"
-                                  :date today)
+                                  :order 2)
                            (:name "Done"
-                                  :todo "DONE")
+                                  :todo "DONE"
+                                  :order 4)
 			 (:discard (:anything))))))))
-        ("c" "Config view"
-            ((tags-todo "config"
-            ((org-agenda-verriding-header "Configurations to do")
-                (org-super-aenda-groups
-                '((:name "Cnfigs to do"
-                    :tag "config")))))))
+        ("w" "work view"
+            ((tags-todo "@work"
+            ((org-agenda-overriding-header "Work Stuff")
+                (org-super-agenda-groups
+                '((:name "Tasks"
+                    :tag "@work")))))
+            (tags-todo "@meeting"
+            ((org-agenda-overriding-header "")
+                (org-super-agenda-groups
+                '((:name "Meetings"
+                   :tag "@meeting")))))))
+        ("i" "inbox"
+         ((tags-todo "inbox"
+                     ((org-agenda-overriding-header "Inbox")))))
+        ("t" "to start"
+         ((tags-todo "+@planning"
+                     ((org-agenda-overriding-header "planning")))
+          (tags-todo "-{.*}"
+                     ((org-agenda-overriding-header "untagged tasks")))))
+        ("p" "personal view"
+            ((tags-todo "journaling"
+            ((org-agenda-overriding-header "personal Stuff")
+                (org-super-agenda-groups
+                '((:name "writing"
+                    :tag "journaling")))))
+            (tags-todo "reading"
+            ((org-agenda-overriding-header "")
+                (org-super-agenda-groups
+                '((:name "reading"
+                   :tag "reading")))))
+            (tags-todo "certifications"
+            ((org-agenda-overriding-header "")
+                (org-super-agenda-groups
+                '((:name "certifications"
+                   :tag "certifications")))))
+            (tags-todo "trips"
+            ((org-agenda-overriding-header "")
+                (org-super-agenda-groups
+                '((:name "trips"
+                   :tag "trips")))))
+            (tags-todo "moving"
+            ((org-agenda-overriding-header "")
+                (org-super-agenda-groups
+                '((:name "moving"
+                   :tag "moving")))))))
+        ("r" "Weekly Review"
+         ((agenda ""
+                  ((org-agenda-overriding-header "Completed Tasks")
+                   (org-agenda-skip-function '(org-agenda-skip-entry-if 'nottodo 'done))
+                   (org-agenda-span 'week)))
+
+          (agenda ""
+                ((org-agenda-overriding-header "Unfinished Scheduled Tasks")
+                 (org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
+                 (org-agenda-span 'week)))))
         ("o" "Overdue tasks"
                 agenda ""
                 ((org-super-agenda-groups
@@ -228,14 +318,19 @@
 
 (setq org-agenda-todo-ignore-scheduled 'future)
 
+(setq org-agenda-skip-scheduled-if-done t)
+(setq org-agenda-skip-deadline-if-done t)
+(setq org-agenda-skip-timestamp-if-done t)
+(setq org-agenda-skip-function-global
+      '(org-agenda-skip-entry-if 'todo 'done))
+
 (setq org-tag-alist
       '(
-        ("meeting" . ?m)
-        ("walking" . ?W)
-        ("riding" . ?r)
-        ("weights" . ?w)
-        ("band" . ?b)
-        ("dogs" . ?d)
+        ("@work" . ?w)
+        ("@meeting" . ?m)
+        ("@band" . ?b)
+        ("@planning" . ?p)
+        ("@reading" . ?r)
         ))
 
 (setq org-habit-graph-column 60)
@@ -295,6 +390,11 @@ current specifications.  This function also sets
 (with-eval-after-load 'org
   (advice-add 'org-columns-get-format :override 'my/org-columns-get-format))
 
+(setq org-agenda-time-grid
+      '((daily today require-timed)
+        (600 700 800 900 1000 1100 1200 1300 1400 1500 1600 1700 1800 1900 2000 2100 2200)
+        "......" "----------------"))
+
 (global-set-key (kbd "C-c C-a") 'org-agenda)
 (global-set-key (kbd "C-c C-l") 'org-store-link)
 (global-set-key (kbd "C-c C-c") 'org-capture)
@@ -306,10 +406,20 @@ current specifications.  This function also sets
 (global-set-key (kbd "C-c i") 'org-download-clipboard)
 (global-set-key (kbd "C-c m") 'elfeed-tube-mpv)
 (global-set-key (kbd "C-c C-g") 'consult-grep)
+(global-set-key (kbd "C-.") 'embark-act)
+
+;; unbinding embark
+(map! :leader
+      :desc "unmapping embark-act" "a" nil)
+
 
 (after! org
-(map! :leader
-      :desc "QL Agenda Search" "f a" #'org-ql-find-in-agenda))
+    (map! :leader
+        :desc "QL Agenda Search" "f a" #'org-ql-find-in-agenda)
+    (map! :leader
+        :desc "Consult find" "c l" #'consult-line)
+    (map! :leader
+        :desc "Org Agenda" "a" #'org-agenda))
 
 (set-register ?w (cons 'file "~/org/work-log.org"))
 
@@ -317,7 +427,7 @@ current specifications.  This function also sets
 (add-hook 'org-mode-hook #'doom-disable-line-numbers-h)
 (add-hook 'org-mode-hook (lambda () (display-line-numbers-mode 0)))
 
-(vi-tilde-fringe-mode -1)
+(setq vi-tilde-fringe-mode nil)
 (remove-hook 'org-mode-hook #'vi-tilde-fringe-mode)
 (add-hook 'org-mode-hook (lambda () (set-fringe-mode 0)))
 
@@ -328,30 +438,46 @@ current specifications.  This function also sets
       diary-display-function #'diary-fancy-display)
 (add-hook 'calendar-today-visible-hook 'calendar-mark-today)
 
+(add-hook 'org-mode-hook
+          (lambda ()
+            (setq-local text-mode-ispell-word-completion t)))
+
+(require 'ox-publish)
+
+(setq org-publish-project-alist
+      '(("my-org-site"
+         :base-directory "~/testwebsite"
+         :publishing-directory "~/testwebsite/public"
+         :recursive t
+         :publishing-function org-twbs-publish-to-html
+         :auto-sitemap t
+         :sitemap-title "Sitemap"
+         :section-numbers nil
+         :with-toc t)))
+
 (use-package consult-org-roam
   :bind(("C-c o" . consult-org-roam-search ))
   )
 
 (require 'org-download)
 
-(require 'elfeed)
+;; (require 'elfeed)
 
 (setq elfeed-feeds
       '(("http://www.spc.noaa.gov/products/spcrss.xml" weather)
         "https://www.youtube.com/feeds/videos.xml?channel_id=UCcaTUtGzOiS4cqrgtcsHYWg"
-        "https://www.youtube.com/feeds/videos.xml?channel_id=UC2eYFnH61tmytImy1mTYvhA"))
+        "https://www.youtube.com/feeds/videos.xml?channel_id=UC2eYFnH61tmytImy1mTYvhA"
+        ("https://protesilaos.com/master.xml" protesilaoshttps://protesilaos.com/master.xml)))
 
+(use-package elfeed
+	:defer t)
 (use-package elfeed-org
-  :ensure t
-  :init
-
-  (setq elfeed-show-entry-switch 'display-buffer)
-  ;; !! Change this to your elfeed.org file !!
-  (setq rmh-elfeed-org-files (list "~/org/elfeed.org"))
-
+  :after (elfeed)
   :config
   (elfeed-org)
-  )
+  (setq elfeed-show-entry-switch 'display-buffer)
+  (setq rmh-elfeed-org-files (list "~/org/elfeed.org")))
+;; !! Change this to your elfeed.org file !!
 
 (use-package elfeed-tube
   :ensure t ;; or :straight t
@@ -383,3 +509,25 @@ current specifications.  This function also sets
 (setq org-contacts-files '("~/org/contacts.org"))
 
 
+
+(setq newsticker-url-list
+      '(("Proteslaos" "https://protesilaos.com/master.xml")))
+
+(setq newsticker-groups
+      `(("Emacs"
+         ("Protesilaos"))))
+
+(use-package ace-window
+  :init
+  (setq aw-dispatch-always t)
+  (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
+  :config
+  (global-set-key (kbd "M-o") 'ace-window))
+
+(require 'org-alert)
+(setq alert-default-style 'libnotify)
+(setq org-alert-interval 300)
+(setq org-alert-notification-title "org alert")
+(org-alert-enable)
+
+(setq calendar-date-style 'iso)

@@ -261,6 +261,10 @@ bindsym $mod+Shift+k exec yad --html --button=OK:0 --geometry=600x800  --uri=/ho
 
 # study
 bindsym $mod+Shift+w exec /home/joonas/.scripts/studyscript
+
+# emacs daemon
+exec --no-startup-id emacs --daemon
+bindsym $mod+Shift+f exec emacsclient -c -a emacs
 # Gappers
 gaps inner 15
 gaps outer 5

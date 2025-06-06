@@ -9,10 +9,11 @@
  '(package-selected-packages
    '(anti-zenburn-theme beacon ef-themes elfeed-org elfeed-tube elfeed-tube-mpv
      ewal-spacemacs-themes flatui-theme fontaine gruvbox-theme helm-org-ql
-     leuven-theme lsp-mode markdownfmt minimap modus-themes org-bullets
-     org-contacts org-contrib org-download org-roam org-super-agenda ox-twbs
-     ox-twiki solarized-gruvbox-theme solo-jazz-theme spacemacs-theme
-     zenburn-theme)))
+     leuven-theme lsp-mode markdownfmt minimap modus-themes org-alert
+     org-bullets org-contacts org-contrib org-download org-inline-anim
+     org-present org-roam org-super-agenda ox-twbs ox-twiki
+     solarized-gruvbox-theme solo-jazz-theme spacemacs-theme spacious-padding
+     wombag zenburn-theme)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

@@ -2,7 +2,7 @@
 #+OPTIONS: ':t toc:nil author:t email:t num:f
 #+PROPERTY: header-args :tangle /home/joonas/.config/doom/config.el
 * Information and help
-Inspriation came from [[https://www.youtube.com/watch?v=ycyxytk1NAQ][protesilaos]] to start the literate org configuration. This is used with the =literate= flag in my doom =init.el=, so everytime I save the page or reload my configuration, it will run =org-babel-tangle= to the correct files.
+Inspriation came from [[https://www.youtube.com/watch?v=ycyxytk1NAQ][protesilaos]] to start the literate org configuration. This is used with the ~literate~ flag in my doom ~init.el~, so everytime I save the page or reload my configuration, it will run ~org-babel-tangle~ to the correct files.
 * Tasks
 ** DONE =Test= edit config :config:
 CLOSED: [2025-06-02 Mon 13:10] SCHEDULED: <2025-06-02 Mon>
@@ -27,17 +27,20 @@ CLOSED: [2025-06-02 Mon 19:27] SCHEDULED: <2025-06-03 Tue>
 ;; (setq doom-theme 'gruvbox-dark-soft)
 (setq doom-theme 'leuven)
 #+end_src
+*** Toggle light and dark mode
 ** Leuven Specific
 #+begin_src emacs-lisp
 ;; (setq leuven-scale-org-agenda-structure nil)
 ;; (setq leuven-scale-org-document-title nil)
 (setq leuven-scale-outline-headlines nil)
-(load-theme 'leuven t)
+(setq leuven-dark-scale-outline-headlines nil)
+(load-theme 'leuven-dark t)
 #+end_src
 ** Relative Line Numbers
 *NOTE:* setting this to relative will break the configuration
 #+begin_src emacs-lisp
 (setq display-line-numbers-type t)
+(setq line-number-mode nil)
 #+end_src
 ** Transparency
 #+begin_src emacs-lisp
@@ -65,11 +68,28 @@ CLOSED: [2025-06-02 Mon 19:27] SCHEDULED: <2025-06-03 Tue>
         (window-height . fit-window-to-buffer)
         (dedicated . t)))
 #+end_src
+** Time & Date in status bar
+#+begin_src emacs-lisp
+(after! doom-modeline
+  ;; Customize the display to show date and time
+  (setq display-time-string-forms
+        '((propertize
+           (concat
+            " 📅 " year "/" month "/" day   ; e.g., 06/05/2025
+            " 🕘 " 24-hours ":" minutes)))) ; e.g., 20:22
+  (display-time-mode 1))
+#+end_src
 * ORG
 ** Directory
 Setting the org directory.
 #+begin_src emacs-lisp
 (setq org-directory "~/org/")
+#+end_src
+** Todo Sequence
+#+begin_src emacs-lisp
+;; (after! org
+    ;; (setq org-todo-keywords
+        ;; '((sequence "TODO" "WAIT" "|" "DONE" "CANCELED"))))
 #+end_src
 ** Emphasis Markers
 Hiding the markers for *bold*, /italize/, and =highlight=.
@@ -158,7 +178,8 @@ Org-roam UI setup to get a Obsidian graph-like view running locally.
 *** Adding to Agenda
 Adding org-roam to the agenda files directory so they can be searchable.
 #+begin_src emacs-lisp
-(setq org-agenda-files (directory-files-recursively "~/org-roam" "~/.org" "~/.config/doom"))
+(setq org-agenda-files '("~/org" "~/org-roam" "~/.config/doom"))
+
 #+end_src
 *** Backlinks
 Enabling the backlinks view through org-roam, toggle with *C-c n l*.
@@ -182,6 +203,28 @@ Enabling the backlinks view through org-roam, toggle with *C-c n l*.
 My currrent capture templates. The work log works like the general journal doom emacs template, where it will add the date and timestamp into a tree, sorted by year -> month -> day. My meeting template takes advantage of org timetracking to track my meeting times. It clocks in when I start the meeting, and clocks out when I close the buffer.
 #+begin_src emacs-lisp
 (after! org
+  (add-to-list 'org-capture-templates '("e" "Eating"))
+  (add-to-list 'org-capture-templates
+      '("eb" "breakfast" entry
+        (file+datetree "~/org/eating.org")
+        "* %U %? :breakfast:\n:PROPERTIES:\n:BREAKFAST: [X]\n:END:" :kill-buffer t))
+  (add-to-list 'org-capture-templates
+      '("el" "lunch" entry
+        (file+datetree "~/org/eating.org")
+        "* %U %? :lunch:\n:PROPERTIES:\n:LUNCr: [X]\n:END:" :kill-buffer t))
+  (add-to-list 'org-capture-templates
+      '("ed" "dinner" entry
+        (file+datetree "~/org/eating.org")
+        "* %U %? :dinner:\n:PROPERTIES:\n:DINNER: [X]\n:END:" :kill-buffer t))
+  (add-to-list 'org-capture-templates
+      '("es" "Shopping" entry
+        (file+datetree "~/org/eating.org")
+        "* %U %? :shopping:\n:PROPERTIES:\n:SHOPPING: %^{What store?|%?|Staters|Sprouts}\n:END:" :kill-buffer t))
+  (add-to-list 'org-capture-templates '("W" "Weather Watching"))
+  (add-to-list 'org-capture-templates
+      '("WW" "weather entry" entry
+        (file+datetree "~/org/weatherwatching.org")
+        "* %U %?\n:PROPERTIES:\n:RAIN: %^{Rain?||[X]|}\n:TORNADO: %^{Tornado?||[X]}\n:HURRICANE: %^{Hurricane?||[X]}\n:END:":kill-buffer t))
   (add-to-list 'org-capture-templates '("k" "Mineral King"))
   (add-to-list 'org-capture-templates
       '("km" "Mineral Meeting" entry
@@ -203,7 +246,7 @@ My currrent capture templates. The work log works like the general journal doom 
   (add-to-list 'org-capture-templates
         '("wm" "Meeting" entry
           (file+datetree "~/org/work-log.org")
-          "* %U %^{What meeting?|%?|CRQ Meeting|SysOps Call|Joel One-on-One|RDM Weekly Touchbase|Bofa Team Discussion|RDM Team Briefings|SysOps TAR} :meeting: \n** Attendees\n-\n** Meetings Notes   :NOTE:\n-\n** Next Steps\n\n"
+          "* %U %^{What meeting?|%?|CRQ Meeting|SysOps Call|Joel One-on-One|RDM Weekly Touchbase|Bofa Team Discussion|RDM Team Briefings|SysOps TAR} :@meeting: \n** Attendees\n-\n** Meetings Notes   :@note:\n-\n** Next Steps\n\n"
           :clock-in t :clock-resume t :jump-to-captured t)))
 
 #+end_src
@@ -239,7 +282,13 @@ Setting the title of documents to be a little bit bigger.
 ;; '(org-level-4 ((t (:height 1.05 :weight bold))))
  '(org-document-title ((t (:height 1.5 :weight bold)))))
 #+end_src
-** Log Time
+** Logging
+*** Log mode
+Activates clock times into agenda mode
+#+begin_src emacs-lisp
+(setq org-agenda-start-with-log-mode 't)
+#+end_src
+*** Log Time
 Shows a timestamp whenever a task is toggle as completed
 #+begin_src emacs-lisp
 (setq org-log-done 'time)
@@ -261,11 +310,12 @@ Super agenda setup to trigger with d.
       org-agenda-block-separator nil
       org-agenda-compact-blocks t
       org-agenda-start-day nil ;; i.e. today
-      org-agenda-span 1
+      org-deadline-warning-days 7
       org-agenda-start-on-weekday nil)
   (setq org-agenda-custom-commands
         '(("d" "Simple day view"
            ((agenda "" ((org-agenda-overriding-header "")
+                        (org-agenda-span 1)
                         (org-super-agenda-groups
                          '((:name "Today"
                                   :time-grid t
@@ -274,19 +324,69 @@ Super agenda setup to trigger with d.
                            (:name "Bills"
                                   :date today
                                   :tag "bills"
-                                  :order 2)
+                                  :order 3)
                            (:name "Configuration"
                                   :tag "config"
-                                  :date today)
+                                  :order 2)
                            (:name "Done"
-                                  :todo "DONE")
+                                  :todo "DONE"
+                                  :order 4)
 			 (:discard (:anything))))))))
-        ("c" "Config view"
-            ((tags-todo "config"
-            ((org-agenda-verriding-header "Configurations to do")
-                (org-super-aenda-groups
-                '((:name "Cnfigs to do"
-                    :tag "config")))))))
+        ("w" "work view"
+            ((tags-todo "@work"
+            ((org-agenda-overriding-header "Work Stuff")
+                (org-super-agenda-groups
+                '((:name "Tasks"
+                    :tag "@work")))))
+            (tags-todo "@meeting"
+            ((org-agenda-overriding-header "")
+                (org-super-agenda-groups
+                '((:name "Meetings"
+                   :tag "@meeting")))))))
+        ("i" "inbox"
+         ((tags-todo "inbox"
+                     ((org-agenda-overriding-header "Inbox")))))
+        ("t" "to start"
+         ((tags-todo "+@planning"
+                     ((org-agenda-overriding-header "planning")))
+          (tags-todo "-{.*}"
+                     ((org-agenda-overriding-header "untagged tasks")))))
+        ("p" "personal view"
+            ((tags-todo "journaling"
+            ((org-agenda-overriding-header "personal Stuff")
+                (org-super-agenda-groups
+                '((:name "writing"
+                    :tag "journaling")))))
+            (tags-todo "reading"
+            ((org-agenda-overriding-header "")
+                (org-super-agenda-groups
+                '((:name "reading"
+                   :tag "reading")))))
+            (tags-todo "certifications"
+            ((org-agenda-overriding-header "")
+                (org-super-agenda-groups
+                '((:name "certifications"
+                   :tag "certifications")))))
+            (tags-todo "trips"
+            ((org-agenda-overriding-header "")
+                (org-super-agenda-groups
+                '((:name "trips"
+                   :tag "trips")))))
+            (tags-todo "moving"
+            ((org-agenda-overriding-header "")
+                (org-super-agenda-groups
+                '((:name "moving"
+                   :tag "moving")))))))
+        ("r" "Weekly Review"
+         ((agenda ""
+                  ((org-agenda-overriding-header "Completed Tasks")
+                   (org-agenda-skip-function '(org-agenda-skip-entry-if 'nottodo 'done))
+                   (org-agenda-span 'week)))
+
+          (agenda ""
+                ((org-agenda-overriding-header "Unfinished Scheduled Tasks")
+                 (org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
+                 (org-agenda-span 'week)))))
         ("o" "Overdue tasks"
                 agenda ""
                 ((org-super-agenda-groups
@@ -303,16 +403,23 @@ Super agenda setup to trigger with d.
 #+begin_src emacs-lisp
 (setq org-agenda-todo-ignore-scheduled 'future)
 #+end_src
+*** Skip if done
+#+begin_src emacs-lisp
+(setq org-agenda-skip-scheduled-if-done t)
+(setq org-agenda-skip-deadline-if-done t)
+(setq org-agenda-skip-timestamp-if-done t)
+(setq org-agenda-skip-function-global
+      '(org-agenda-skip-entry-if 'todo 'done))
+#+end_src
 ** Tags
 #+begin_src emacs-lisp
 (setq org-tag-alist
       '(
-        ("meeting" . ?m)
-        ("walking" . ?W)
-        ("riding" . ?r)
-        ("weights" . ?w)
-        ("band" . ?b)
-        ("dogs" . ?d)
+        ("@work" . ?w)
+        ("@meeting" . ?m)
+        ("@band" . ?b)
+        ("@planning" . ?p)
+        ("@reading" . ?r)
         ))
 #+end_src
 ** Habits
@@ -381,6 +488,13 @@ current specifications.  This function also sets
   (advice-add 'org-columns-get-format :override 'my/org-columns-get-format))
 #+end_src
 
+** Time grid
+#+begin_src emacs-lisp
+(setq org-agenda-time-grid
+      '((daily today require-timed)
+        (600 700 800 900 1000 1100 1200 1300 1400 1500 1600 1700 1800 1900 2000 2100 2200)
+        "......" "----------------"))
+#+end_src
 * Keybinds
 #+begin_src emacs-lisp
 (global-set-key (kbd "C-c C-a") 'org-agenda)
@@ -394,14 +508,21 @@ current specifications.  This function also sets
 (global-set-key (kbd "C-c i") 'org-download-clipboard)
 (global-set-key (kbd "C-c m") 'elfeed-tube-mpv)
 (global-set-key (kbd "C-c C-g") 'consult-grep)
+(global-set-key (kbd "C-.") 'embark-act)
+
+;; unbinding embark
+(map! :leader
+      :desc "unmapping embark-act" "a" nil)
+
 
 (after! org
-(map! :leader
-      :desc "QL Agenda Search" "f a" #'org-ql-find-in-agenda))
+    (map! :leader
+        :desc "QL Agenda Search" "f a" #'org-ql-find-in-agenda)
+    (map! :leader
+        :desc "Consult find" "c l" #'consult-line)
+    (map! :leader
+        :desc "Org Agenda" "a" #'org-agenda))
 #+end_src
-
-#+RESULTS:
-: org-ql-find-in-agenda
 
 * Emacs
 ** Registers
@@ -418,7 +539,7 @@ Removes line numbers from org files
 ** Fringe Mode
 Removes the *~* from org files.
 #+begin_src emacs-lisp
-(vi-tilde-fringe-mode -1)
+(setq vi-tilde-fringe-mode nil)
 (remove-hook 'org-mode-hook #'vi-tilde-fringe-mode)
 (add-hook 'org-mode-hook (lambda () (set-fringe-mode 0)))
 #+end_src
@@ -432,6 +553,27 @@ Removes the *~* from org files.
 (add-hook 'calendar-today-visible-hook 'calendar-mark-today)
 #+end_src
 
+** Ispell
+#+begin_src emacs-lisp
+(add-hook 'org-mode-hook
+          (lambda ()
+            (setq-local text-mode-ispell-word-completion t)))
+#+end_src
+* Publish
+#+begin_src emacs-lisp
+(require 'ox-publish)
+
+(setq org-publish-project-alist
+      '(("my-org-site"
+         :base-directory "~/testwebsite"
+         :publishing-directory "~/testwebsite/public"
+         :recursive t
+         :publishing-function org-twbs-publish-to-html
+         :auto-sitemap t
+         :sitemap-title "Sitemap"
+         :section-numbers nil
+         :with-toc t)))
+#+end_src
 * Other Packages
 ** Package Install
 #+begin_src emacs-lisp :tangle /home/joonas/.config/doom/packages.el
@@ -446,7 +588,6 @@ Removes the *~* from org files.
 (package! markdown-mode)
 (package! elfeed-org)
 (package! org-download)
-(package! elfeed-org)
 (package! elfeed-tube)
 (package! elfeed-tube-mpv)
 (package! beacon)
@@ -465,6 +606,12 @@ Removes the *~* from org files.
 (package! zenburn-theme)
 (package! hc-zenburn-theme)
 (package! anti-zenburn-theme)
+(package! consult-org-roam)
+(package! org-inline-anim)
+(package! org-inline-pdf)
+(package! ox-hugo)
+(package! ace-window)
+(package! org-alert)
 #+end_src
 ** Consult
 #+begin_src emacs-lisp
@@ -480,28 +627,27 @@ Removes the *~* from org files.
 ** Elfeed
 *** Require
 #+begin_src emacs-lisp
-(require 'elfeed)
+;; (require 'elfeed)
 #+end_src
 *** Feeds
 #+begin_src emacs-lisp
 (setq elfeed-feeds
       '(("http://www.spc.noaa.gov/products/spcrss.xml" weather)
         "https://www.youtube.com/feeds/videos.xml?channel_id=UCcaTUtGzOiS4cqrgtcsHYWg"
-        "https://www.youtube.com/feeds/videos.xml?channel_id=UC2eYFnH61tmytImy1mTYvhA"))
+        "https://www.youtube.com/feeds/videos.xml?channel_id=UC2eYFnH61tmytImy1mTYvhA"
+        ("https://protesilaos.com/master.xml" protesilaoshttps://protesilaos.com/master.xml)))
 #+end_src
 *** elfeed-org
 #+begin_src emacs-lisp
+(use-package elfeed
+	:defer t)
 (use-package elfeed-org
-  :ensure t
-  :init
-
-  (setq elfeed-show-entry-switch 'display-buffer)
-  ;; !! Change this to your elfeed.org file !!
-  (setq rmh-elfeed-org-files (list "~/org/elfeed.org"))
-
+  :after (elfeed)
   :config
   (elfeed-org)
-  )
+  (setq elfeed-show-entry-switch 'display-buffer)
+  (setq rmh-elfeed-org-files (list "~/org/elfeed.org")))
+;; !! Change this to your elfeed.org file !!
 #+end_src
 *** Elfeed Tube and MPV
 #+begin_src emacs-lisp
@@ -543,5 +689,42 @@ Removes the *~* from org files.
 #+end_src
 ** Yas Snippet
 #+begin_src emacs-lisp
+
+#+end_src
+
+** Newstickers
+*** URL list
+#+begin_src emacs-lisp
+(setq newsticker-url-list
+      '(("Proteslaos" "https://protesilaos.com/master.xml")))
+#+end_src
+*** Groups
+#+begin_src emacs-lisp
+(setq newsticker-groups
+      `(("Emacs"
+         ("Protesilaos"))))
+#+end_src
+
+** Ace Window
+#+begin_src emacs-lisp
+(use-package ace-window
+  :init
+  (setq aw-dispatch-always t)
+  (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
+  :config
+  (global-set-key (kbd "M-o") 'ace-window))
+#+end_src
+** org-alert
+#+begin_src emacs-lisp
+(require 'org-alert)
+(setq alert-default-style 'libnotify)
+(setq org-alert-interval 300)
+(setq org-alert-notification-title "org alert")
+(org-alert-enable)
+#+end_src
+
+** calendar
+#+begin_src emacs-lisp
+(setq calendar-date-style 'iso)
 
 #+end_src
