@@ -165,3 +165,7 @@ alias radar="curl -sSL https://radar.weather.gov/ridge/standard/CONUS-LARGE_loop
 
 # restart dunst
 alias redunst="pkill dunst && dunst &"
+
+# alias for boox stuff
+alias palma="/home/joonas/Documents/Boox/Sync/BooxPalma/"
+alias booxgo="~/Documents/Boox/Sync/BooxGo/"

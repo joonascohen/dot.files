@@ -1,6 +1,6 @@
-(setq doom-font (font-spec :family "Iosevka Term" :size 16 :weight 'medium)
+(setq doom-font (font-spec :family "Aporetic Serif Mono" :size 16 :weight 'medium)
       doom-variable-pitch-font (font-spec :family "Iosevka Comfy Duo" :size 16 :weight 'medium)
-      doom-big-font (font-spec :family "Iosevka Term" :size 24 :weight 'semibold))
+      doom-big-font (font-spec :family "Aporetic Serif" :size 24 :weight 'bold))
 ;; (setq doom-font "Iosevka Term-14")
 (after! doom-themes
   (setq doom-themes-enable-bold t
@@ -11,11 +11,24 @@
 ;; (setq doom-theme 'gruvbox-dark-soft)
 (setq doom-theme 'leuven)
 
+(defvar my-current-theme nil
+  "Stores the currently active theme for toggling.")
+
+(defun my/my-toggle-theme ()
+  "Toggle between two predefined themes. SET: leuven & leuvan dark"
+  (interactive)
+  (mapc #'disable-theme custom-enabled-themes) ; Disable all currently enabled themes
+  (setq my-current-theme
+        (if (eq my-current-theme 'leuven-dark)
+            'leuven
+          'leuven-dark))
+  (load-theme my-current-theme t)
+  (message "Loaded theme: %s" my-current-theme))
+
 ;; (setq leuven-scale-org-agenda-structure nil)
 ;; (setq leuven-scale-org-document-title nil)
 (setq leuven-scale-outline-headlines nil)
 (setq leuven-dark-scale-outline-headlines nil)
-(load-theme 'leuven-dark t)
 
 (setq display-line-numbers-type t)
 (setq line-number-mode nil)
@@ -145,21 +158,29 @@
 (after! org
   (add-to-list 'org-capture-templates '("e" "Eating"))
   (add-to-list 'org-capture-templates
+      '("eo" "eating out" entry
+        (file+datetree "~/org/eating.org")
+        "* %U %? :@eatingout:\n:PROPERTIES:\n:EATINGOUT: [X]\n:END:" :kill-buffer t))
+  (add-to-list 'org-capture-templates
       '("eb" "breakfast" entry
         (file+datetree "~/org/eating.org")
-        "* %U %? :breakfast:\n:PROPERTIES:\n:BREAKFAST: [X]\n:END:" :kill-buffer t))
+        "* %U %? :@breakfast:\n:PROPERTIES:\n:BREAKFAST: [X]\n:END:" :kill-buffer t))
   (add-to-list 'org-capture-templates
       '("el" "lunch" entry
         (file+datetree "~/org/eating.org")
-        "* %U %? :lunch:\n:PROPERTIES:\n:LUNCr: [X]\n:END:" :kill-buffer t))
+        "* %U %? :@lunch:\n:PROPERTIES:\n:LUNCr: [X]\n:END:" :kill-buffer t))
   (add-to-list 'org-capture-templates
       '("ed" "dinner" entry
         (file+datetree "~/org/eating.org")
-        "* %U %? :dinner:\n:PROPERTIES:\n:DINNER: [X]\n:END:" :kill-buffer t))
+        "* %U %? :@dinner:\n:PROPERTIES:\n:DINNER: [X]\n:END:" :kill-buffer t))
   (add-to-list 'org-capture-templates
-      '("es" "Shopping" entry
+      '("es" "snacking" entry
         (file+datetree "~/org/eating.org")
-        "* %U %? :shopping:\n:PROPERTIES:\n:SHOPPING: %^{What store?|%?|Staters|Sprouts}\n:END:" :kill-buffer t))
+        "* %U %? :@snack:\n:PROPERTIES:\n:SNACK: [X]\n:END:" :kill-buffer t))
+  (add-to-list 'org-capture-templates
+      '("eS" "Shopping" entry
+        (file+datetree "~/org/eating.org")
+        "* %U %? :@shopping:\n:PROPERTIES:\n:SHOPPING: %^{What store?|%?|Staters|Sprouts}\n:END:" :kill-buffer t))
   (add-to-list 'org-capture-templates '("W" "Weather Watching"))
   (add-to-list 'org-capture-templates
       '("WW" "weather entry" entry
@@ -290,11 +311,11 @@
                 (org-super-agenda-groups
                 '((:name "trips"
                    :tag "trips")))))
-            (tags-todo "moving"
+            (tags-todo "@moving"
             ((org-agenda-overriding-header "")
                 (org-super-agenda-groups
                 '((:name "moving"
-                   :tag "moving")))))))
+                   :tag "@moving")))))))
         ("r" "Weekly Review"
          ((agenda ""
                   ((org-agenda-overriding-header "Completed Tasks")
@@ -412,8 +433,22 @@ current specifications.  This function also sets
 (map! :leader
       :desc "unmapping embark-act" "a" nil)
 
+;; hydra
+(map! :leader
+ (:prefix "w"
+  :desc "Hydra resize" :n "SPC" #'doom-window-resize-hydra/body))
 
 (after! org
+    (map! :leader
+        :desc "toggle themes" "t t" #'my/my-toggle-theme)
+    (map! :leader
+        :desc "toggle themes" "t h" #'doric-themes-toggle)
+    (map! :leader
+        :desc "toggle themes" "t o" #'modus-themes-toggle)
+    (map! :leader
+        :desc "Variable Pitch mode" "p m" #'variable-pitch-mode)
+    (map! :leader
+        :desc "Olivetti mode" "o m" #'olivetti-mode)
     (map! :leader
         :desc "QL Agenda Search" "f a" #'org-ql-find-in-agenda)
     (map! :leader
@@ -441,6 +476,8 @@ current specifications.  This function also sets
 (add-hook 'org-mode-hook
           (lambda ()
             (setq-local text-mode-ispell-word-completion t)))
+
+(setq calendar-date-style 'iso)
 
 (require 'ox-publish)
 
@@ -530,4 +567,17 @@ current specifications.  This function also sets
 (setq org-alert-notification-title "org alert")
 (org-alert-enable)
 
-(setq calendar-date-style 'iso)
+(defhydra doom-window-resize-hydra (:hint nil)
+  "
+Resize window: _h_ left  _j_ down  _k_ up  _l_ right
+"
+  ("h" evil-window-decrease-width)
+  ("j" evil-window-increase-height)
+  ("k" evil-window-decrease-height)
+  ("l" evil-window-increase-width)
+  ("q" nil "quit"))
+
+(setq global-colorful-mode t)
+(setq colorful-mode-major-mode t)
+
+(setq ob-mermaid-cli-path "/usr/bin/mmdc")
