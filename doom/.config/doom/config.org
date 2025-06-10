@@ -659,6 +659,7 @@ Removes the *~* from org files.
 (package! colorful-mode)
 (package! notmuch)
 (package! ob-mermaid)
+(package! nix-mode)
 #+end_src
 ** Consult
 #+begin_src emacs-lisp

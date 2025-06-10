@@ -39,3 +39,4 @@
 (package! colorful-mode)
 (package! notmuch)
 (package! ob-mermaid)
+(package! nix-mode)
