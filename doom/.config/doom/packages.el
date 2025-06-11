@@ -40,3 +40,5 @@
 (package! notmuch)
 (package! ob-mermaid)
 (package! nix-mode)
+(package! htmlize)
+(package! lsp-mode)

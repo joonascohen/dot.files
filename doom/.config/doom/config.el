@@ -479,19 +479,6 @@ current specifications.  This function also sets
 
 (setq calendar-date-style 'iso)
 
-(require 'ox-publish)
-
-(setq org-publish-project-alist
-      '(("my-org-site"
-         :base-directory "~/testwebsite"
-         :publishing-directory "~/testwebsite/public"
-         :recursive t
-         :publishing-function org-twbs-publish-to-html
-         :auto-sitemap t
-         :sitemap-title "Sitemap"
-         :section-numbers nil
-         :with-toc t)))
-
 (use-package consult-org-roam
   :bind(("C-c o" . consult-org-roam-search ))
   )
@@ -581,3 +568,5 @@ Resize window: _h_ left  _j_ down  _k_ up  _l_ right
 (setq colorful-mode-major-mode t)
 
 (setq ob-mermaid-cli-path "/usr/bin/mmdc")
+
+(require 'org-collector)

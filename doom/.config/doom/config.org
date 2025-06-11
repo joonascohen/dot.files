@@ -600,21 +600,6 @@ Removes the *~* from org files.
 #+begin_src emacs-lisp
 (setq calendar-date-style 'iso)
 #+end_src
-* Publish
-#+begin_src emacs-lisp
-(require 'ox-publish)
-
-(setq org-publish-project-alist
-      '(("my-org-site"
-         :base-directory "~/testwebsite"
-         :publishing-directory "~/testwebsite/public"
-         :recursive t
-         :publishing-function org-twbs-publish-to-html
-         :auto-sitemap t
-         :sitemap-title "Sitemap"
-         :section-numbers nil
-         :with-toc t)))
-#+end_src
 * Other Packages
 ** Package Install
 #+begin_src emacs-lisp :tangle /home/joonas/.config/doom/packages.el
@@ -660,6 +645,8 @@ Removes the *~* from org files.
 (package! notmuch)
 (package! ob-mermaid)
 (package! nix-mode)
+(package! htmlize)
+(package! lsp-mode)
 #+end_src
 ** Consult
 #+begin_src emacs-lisp
@@ -792,4 +779,8 @@ Resize window: _h_ left  _j_ down  _k_ up  _l_ right
 ** ob-mermaid
 #+begin_src emacs-lisp
 (setq ob-mermaid-cli-path "/usr/bin/mmdc")
+#+end_src
+** collector
+#+begin_src emacs-lisp
+(require 'org-collector)
 #+end_src
