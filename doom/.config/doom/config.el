@@ -192,6 +192,10 @@
         (file+headline "~/org/mk.org" "Meetings")
         "* TODO %^{Enter Mineral King Meeting: }\n SCHEDULED: %^t\n" :kill-buffer t))
   (add-to-list 'org-capture-templates
+      '("kt" "Mineral Task" entry
+        (file+headline "~/org/mk.org" "Tasks")
+        "* TODO %^{Enter Mineral King Meeting: }\n SCHEDULED: %^t\n" :kill-buffer t))
+  (add-to-list 'org-capture-templates
       '("kg" "Gig" entry
         (file+headline "~/org/mk.org" "Gigs and Events")
         "* TODO %^{Enter Mineral King Gig: }\n SCHEDULED: %^t\n" :kill-buffer t))
@@ -352,6 +356,7 @@
         ("@band" . ?b)
         ("@planning" . ?p)
         ("@reading" . ?r)
+        ("@family" . ?f)
         ))
 
 (setq org-habit-graph-column 60)

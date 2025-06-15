@@ -254,6 +254,10 @@ My currrent capture templates. The work log works like the general journal doom 
         (file+headline "~/org/mk.org" "Meetings")
         "* TODO %^{Enter Mineral King Meeting: }\n SCHEDULED: %^t\n" :kill-buffer t))
   (add-to-list 'org-capture-templates
+      '("kt" "Mineral Task" entry
+        (file+headline "~/org/mk.org" "Tasks")
+        "* TODO %^{Enter Mineral King Meeting: }\n SCHEDULED: %^t\n" :kill-buffer t))
+  (add-to-list 'org-capture-templates
       '("kg" "Gig" entry
         (file+headline "~/org/mk.org" "Gigs and Events")
         "* TODO %^{Enter Mineral King Gig: }\n SCHEDULED: %^t\n" :kill-buffer t))
@@ -443,6 +447,7 @@ Super agenda setup to trigger with d.
         ("@band" . ?b)
         ("@planning" . ?p)
         ("@reading" . ?r)
+        ("@family" . ?f)
         ))
 #+end_src
 ** Habits
