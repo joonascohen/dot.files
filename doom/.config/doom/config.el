@@ -1,4 +1,4 @@
-(setq doom-font (font-spec :family "Aporetic Serif Mono" :size 16 :weight 'medium)
+(setq doom-font (font-spec :family "Aporetic Serif Mono" :size 16 :weight 'regular)
       doom-variable-pitch-font (font-spec :family "Iosevka Comfy Duo" :size 16 :weight 'medium)
       doom-big-font (font-spec :family "Aporetic Serif" :size 24 :weight 'bold))
 ;; (setq doom-font "Iosevka Term-14")
@@ -9,7 +9,7 @@
 ;; (setq doom-theme 'doom-gruvbox)
 ;; (setq doom-theme 'ef-duo-light)
 ;; (setq doom-theme 'gruvbox-dark-soft)
-(setq doom-theme 'leuven)
+(setq doom-theme 'ef-duo-light)
 
 (defvar my-current-theme nil
   "Stores the currently active theme for toggling.")
@@ -19,9 +19,9 @@
   (interactive)
   (mapc #'disable-theme custom-enabled-themes) ; Disable all currently enabled themes
   (setq my-current-theme
-        (if (eq my-current-theme 'leuven-dark)
-            'leuven
-          'leuven-dark))
+        (if (eq my-current-theme 'ef-duo-light)
+          'ef-duo-light
+          'ef-duo-dark))
   (load-theme my-current-theme t)
   (message "Loaded theme: %s" my-current-theme))
 
@@ -30,7 +30,7 @@
 (setq leuven-scale-outline-headlines nil)
 (setq leuven-dark-scale-outline-headlines nil)
 
-(setq display-line-numbers-type t)
+(setq display-line-numbers-type 'nil)
 (setq line-number-mode nil)
 
 (set-frame-parameter nil 'alpha-background 80)  ;; 90 = 90% opaque, 10% transparent
@@ -159,32 +159,32 @@
   (add-to-list 'org-capture-templates '("e" "Eating"))
   (add-to-list 'org-capture-templates
       '("eo" "eating out" entry
-        (file+datetree "~/org/eating.org")
+        (file+olp+datetree "~/org/eating.org")
         "* %U %? :@eatingout:\n:PROPERTIES:\n:EATINGOUT: [X]\n:END:" :kill-buffer t))
   (add-to-list 'org-capture-templates
       '("eb" "breakfast" entry
-        (file+datetree "~/org/eating.org")
+        (file+olp+datetree "~/org/eating.org")
         "* %U %? :@breakfast:\n:PROPERTIES:\n:BREAKFAST: [X]\n:END:" :kill-buffer t))
   (add-to-list 'org-capture-templates
       '("el" "lunch" entry
-        (file+datetree "~/org/eating.org")
-        "* %U %? :@lunch:\n:PROPERTIES:\n:LUNCr: [X]\n:END:" :kill-buffer t))
+        (file+olp+datetree "~/org/eating.org")
+        "* %U %? :@lunch:\n:PROPERTIES:\n:LUNCH: [X]\n:END:" :kill-buffer t))
   (add-to-list 'org-capture-templates
       '("ed" "dinner" entry
-        (file+datetree "~/org/eating.org")
+        (file+olp+datetree "~/org/eating.org")
         "* %U %? :@dinner:\n:PROPERTIES:\n:DINNER: [X]\n:END:" :kill-buffer t))
   (add-to-list 'org-capture-templates
       '("es" "snacking" entry
-        (file+datetree "~/org/eating.org")
+        (file+olp+datetree "~/org/eating.org")
         "* %U %? :@snack:\n:PROPERTIES:\n:SNACK: [X]\n:END:" :kill-buffer t))
   (add-to-list 'org-capture-templates
       '("eS" "Shopping" entry
-        (file+datetree "~/org/eating.org")
+        (file+olp+datetree "~/org/eating.org")
         "* %U %? :@shopping:\n:PROPERTIES:\n:SHOPPING: %^{What store?|%?|Staters|Sprouts}\n:END:" :kill-buffer t))
   (add-to-list 'org-capture-templates '("W" "Weather Watching"))
   (add-to-list 'org-capture-templates
       '("WW" "weather entry" entry
-        (file+datetree "~/org/weatherwatching.org")
+        (file+olp+datetree "~/org/weatherwatching.org")
         "* %U %?\n:PROPERTIES:\n:RAIN: %^{Rain?||[X]|}\n:TORNADO: %^{Tornado?||[X]}\n:HURRICANE: %^{Hurricane?||[X]}\n:END:":kill-buffer t))
   (add-to-list 'org-capture-templates '("k" "Mineral King"))
   (add-to-list 'org-capture-templates
@@ -210,8 +210,8 @@
         "* TODO %?\n SCHEDULED: %^t\n%i\n%a" :kill-buffer t))
   (add-to-list 'org-capture-templates
         '("wm" "Meeting" entry
-          (file+datetree "~/org/work-log.org")
-          "* %U %^{What meeting?|%?|CRQ Meeting|SysOps Call|Joel One-on-One|RDM Weekly Touchbase|Bofa Team Discussion|RDM Team Briefings|SysOps TAR} :@meeting: \n** Attendees\n-\n** Meetings Notes   :@note:\n-\n** Next Steps\n\n"
+          (file+olp+datetree "~/org/work-log.org")
+          "* %U %^{What meeting?|%?|CRQ Meeting|SysOps Call|Joel One-on-One|RDM Weekly Agenda Touchbase|Bofa Team Discussion|RDM Team Briefings|SysOps TAR|MPS Card Readers - SOP} :@meeting: \n** Attendees\n-\n** Meetings Notes   :@note:\n-\n** Next Steps\n\n"
           :clock-in t :clock-resume t :jump-to-captured t)))
 
 ;; bold headers
@@ -243,103 +243,134 @@
 (setq org-M-RET-may-split-line '((default . nil)))
 (setq org-insert-heading-respect-content t)
 (setq org-log-into-drawer t)
-(use-package org-super-agenda
-  :ensure t
-  :after org-agenda
-  :init
-  (setq org-agenda-skip-scheduled-if-done nil
-      org-agenda-skip-deadline-if-done nil
-      org-agenda-include-deadlines t
-      org-agenda-block-separator nil
-      org-agenda-compact-blocks t
-      org-agenda-start-day nil ;; i.e. today
-      org-deadline-warning-days 7
-      org-agenda-start-on-weekday nil)
-  (setq org-agenda-custom-commands
-        '(("d" "Simple day view"
-           ((agenda "" ((org-agenda-overriding-header "")
-                        (org-agenda-span 1)
-                        (org-super-agenda-groups
-                         '((:name "Today"
-                                  :time-grid t
-                                  :date today
-                                  :order 1)
-                           (:name "Bills"
-                                  :date today
-                                  :tag "bills"
-                                  :order 3)
-                           (:name "Configuration"
-                                  :tag "config"
-                                  :order 2)
-                           (:name "Done"
-                                  :todo "DONE"
-                                  :order 4)
-			 (:discard (:anything))))))))
-        ("w" "work view"
-            ((tags-todo "@work"
-            ((org-agenda-overriding-header "Work Stuff")
+(after! org
+    (use-package org-super-agenda
+    :ensure t
+    :after org-agenda
+    :init
+    (setq org-agenda-skip-scheduled-if-done nil
+        org-agenda-skip-deadline-if-done nil
+        org-agenda-include-deadlines t
+        org-agenda-block-separator nil
+        org-agenda-compact-blocks t
+        org-agenda-start-day nil ;; i.e. today
+        org-deadline-warning-days 7
+        org-agenda-start-on-weekday nil)
+    (setq org-agenda-custom-commands
+            '(("d" "Simple day view"
+            ((agenda "" ((org-agenda-overriding-header "")
+                            (org-agenda-span 1)
+                            (org-super-agenda-groups
+                            '((:name "Overdue"
+                               :scheduled past
+                               :face error)
+                              (:name "💵 Bills"
+                                :tag "bills")
+                              (:name "🗓 Today"
+                                    :time-grid t
+                                    :date today
+                                    :order 2)
+                            (:name "Configuration"
+                                    :tag "config"
+                                    :order 2)
+                            (:name "Done"
+                                    :todo "DONE"
+                                    :order 4)
+                            (:discard (:anything))))))))
+            ("w" "work view"
+                ((tags-todo "@work"
+                ((org-agenda-overriding-header "Work Stuff")
+                    (org-super-agenda-groups
+                    '((:name "Tasks"
+                        :tag "@work")))))
+                (tags-todo "@meeting"
+                ((org-agenda-overriding-header "")
+                    (org-super-agenda-groups
+                    '((:name "Meetings"
+                    :tag "@meeting")))))))
+            ("i" "inbox"
+            ((tags-todo "inbox"
+                        ((org-agenda-overriding-header "Inbox")))))
+            ("t" "to start"
+            ((tags-todo "+@planning"
+                        ((org-agenda-overriding-header "planning")))
+            (tags-todo "-{.*}"
+                        ((org-agenda-overriding-header "untagged tasks")))))
+            ("p" "personal view"
+                ((tags-todo "journaling"
+                ((org-agenda-overriding-header "personal Stuff")
+                    (org-super-agenda-groups
+                    '((:name "writing"
+                        :tag "journaling")))))
+                (tags-todo "reading"
+                ((org-agenda-overriding-header "")
+                    (org-super-agenda-groups
+                    '((:name "reading"
+                    :tag "reading")))))
+                (tags-todo "certifications"
+                ((org-agenda-overriding-header "")
+                    (org-super-agenda-groups
+                    '((:name "certifications"
+                    :tag "certifications")))))
+                (tags-todo "trips"
+                ((org-agenda-overriding-header "")
+                    (org-super-agenda-groups
+                    '((:name "trips"
+                    :tag "trips")))))
+                (tags-todo "@moving"
+                ((org-agenda-overriding-header "" )
+                    (org-super-agenda-groups
+                    '((:name "moving"
+                    :tag "@moving")))))))
+            ("o" "Overdue tasks"
+                    agenda ""
+                    ((org-super-agenda-groups
+                    '((:name "Overdue"
+                                :and (:not (:todo "DONE")
+                                        (:scheduled past))
+                                :and (:not (:todo "DONE")
+                                        (:deadline past)))))))
+            ("q" "My QL Agenda"
+                ((org-ql-block
+                '(and (or (ts-active :on today)
+                            (deadline auto)
+                            (scheduled :to today))
+                        (not (done)))
+                ((org-ql-block-header "My Agenda View")
                 (org-super-agenda-groups
-                '((:name "Tasks"
-                    :tag "@work")))))
-            (tags-todo "@meeting"
-            ((org-agenda-overriding-header "")
+                    '((:name "Bills" :tag "bills" :date today)
+                    (:todo ("STRT" "WAIT" "CHECK" "TO-WATCH" "WATCHING") :order 7)
+                    (:name "Personal" :habit t :tag "personal" :order 3)
+                    (:name "Work" :tag ("@work" "@meeting" "@crq"))
+                    (:todo "WAIT" :order 6)
+                    (:priority "A" :order 1)
+                    (:priority "B" :order 2)
+                    (:priority "C" :order 2)))))))
+            ("W" "Moving Tasks"
+            ((org-ql-block
+                '(and (tags "@moving") (not (done)))
+                ((org-ql-block-header "Moving to Washington")
                 (org-super-agenda-groups
-                '((:name "Meetings"
-                   :tag "@meeting")))))))
-        ("i" "inbox"
-         ((tags-todo "inbox"
-                     ((org-agenda-overriding-header "Inbox")))))
-        ("t" "to start"
-         ((tags-todo "+@planning"
-                     ((org-agenda-overriding-header "planning")))
-          (tags-todo "-{.*}"
-                     ((org-agenda-overriding-header "untagged tasks")))))
-        ("p" "personal view"
-            ((tags-todo "journaling"
-            ((org-agenda-overriding-header "personal Stuff")
+                '(
+                    (:name "❗High Priority" :priority "A")
+                    (:name "Next Priority" :priority "B")
+                    (:name "🗑Trash" :tag "@trash")
+                    (:name "💸Selling" :tag "@sell")
+                    (:name "📦Packing in U-box" :tag "@taking")
+                    (:name "📦Packing in Car" :tag "@cars")
+                    (:name "Giving away" :tag "@give")
+                    (:name "✔Washington Tasks" :tag "@moving")
+                    ;; Add more groups here if needed
+                    (:discard (:anything t))))))))
+            ("R" "Grouped by REQUESTS property"
+            ((org-ql-block
+                '(property "REQUESTS")
+                ((org-ql-block-header "Tasks with REQUESTS property")
+                (org-super-agenda-group-property-name "REQUESTS")
                 (org-super-agenda-groups
-                '((:name "writing"
-                    :tag "journaling")))))
-            (tags-todo "reading"
-            ((org-agenda-overriding-header "")
-                (org-super-agenda-groups
-                '((:name "reading"
-                   :tag "reading")))))
-            (tags-todo "certifications"
-            ((org-agenda-overriding-header "")
-                (org-super-agenda-groups
-                '((:name "certifications"
-                   :tag "certifications")))))
-            (tags-todo "trips"
-            ((org-agenda-overriding-header "")
-                (org-super-agenda-groups
-                '((:name "trips"
-                   :tag "trips")))))
-            (tags-todo "@moving"
-            ((org-agenda-overriding-header "")
-                (org-super-agenda-groups
-                '((:name "moving"
-                   :tag "@moving")))))))
-        ("r" "Weekly Review"
-         ((agenda ""
-                  ((org-agenda-overriding-header "Completed Tasks")
-                   (org-agenda-skip-function '(org-agenda-skip-entry-if 'nottodo 'done))
-                   (org-agenda-span 'week)))
-
-          (agenda ""
-                ((org-agenda-overriding-header "Unfinished Scheduled Tasks")
-                 (org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
-                 (org-agenda-span 'week)))))
-        ("o" "Overdue tasks"
-                agenda ""
-                ((org-super-agenda-groups
-                '((:name "Overdue"
-                            :and (:not (:todo "DONE")
-                                    (:scheduled past))
-                            :and (:not (:todo "DONE")
-                                    (:deadline past)))))))))
-  :config
-  (org-super-agenda-mode))
+                '((:auto-group t)))))))))
+    :config
+    (org-super-agenda-mode)))
 
 (setq org-agenda-todo-ignore-scheduled 'future)
 
@@ -349,6 +380,8 @@
 (setq org-agenda-skip-function-global
       '(org-agenda-skip-entry-if 'todo 'done))
 
+
+
 (setq org-tag-alist
       '(
         ("@work" . ?w)
@@ -357,6 +390,8 @@
         ("@planning" . ?p)
         ("@reading" . ?r)
         ("@family" . ?f)
+        ("@crq" . ?c)
+        ("@wo" . ?W)
         ))
 
 (setq org-habit-graph-column 60)
@@ -421,7 +456,6 @@ current specifications.  This function also sets
         (600 700 800 900 1000 1100 1200 1300 1400 1500 1600 1700 1800 1900 2000 2100 2200)
         "......" "----------------"))
 
-(global-set-key (kbd "C-c C-a") 'org-agenda)
 (global-set-key (kbd "C-c C-l") 'org-store-link)
 (global-set-key (kbd "C-c C-c") 'org-capture)
 (global-set-key (kbd "C-d") 'org-agenda-day-view)
@@ -459,6 +493,8 @@ current specifications.  This function also sets
     (map! :leader
         :desc "Consult find" "c l" #'consult-line)
     (map! :leader
+        :desc "Org QL open link" "o l" #'org-ql-open-link)
+    (map! :leader
         :desc "Org Agenda" "a" #'org-agenda))
 
 (set-register ?w (cons 'file "~/org/work-log.org"))
@@ -483,6 +519,8 @@ current specifications.  This function also sets
             (setq-local text-mode-ispell-word-completion t)))
 
 (setq calendar-date-style 'iso)
+(setq calendar-mark-diary-entries-flag t)
+(setq calendar-week-start-day 1)
 
 (use-package consult-org-roam
   :bind(("C-c o" . consult-org-roam-search ))
@@ -531,6 +569,7 @@ current specifications.  This function also sets
 
 (require 'org-bullets)
 (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+(setq org-bullets-mode t)
 
 (setq beacon-mode 1)
 

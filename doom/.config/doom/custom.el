@@ -4,17 +4,19 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(helm-minibuffer-history-key "M-p")
  '(org-safe-remote-resources
    '("\\`https://fniessen\\.github\\.io/org-html-themes/org/theme-readtheorg\\.setup\\'"))
  '(package-selected-packages
    '(anti-zenburn-theme beacon colorful-mode doric-themes ef-themes elfeed-org
      elfeed-tube elfeed-tube-mpv ewal-spacemacs-themes flatui-theme fontaine
-     gruvbox-theme helm-org-ql leuven-theme lsp-mode markdownfmt minimap
-     modus-themes nix-mode ob-mermaid olivetti org-alert org-bullets
-     org-contacts org-contrib org-download org-inline-anim org-present org-roam
-     org-super-agenda ox-twbs ox-twiki simple-httpd solarized-gruvbox-theme
-     solo-jazz-theme spacemacs-theme spacious-padding standard-themes wombag
-     zenburn-theme))
+     gruvbox-theme helm-org-ql helm-org-recent-headings helm-org-rifle
+     helm-orgcard leuven-theme lsp-mode markdown-preview-mode markdownfmt
+     minimap modus-themes nix-mode ob-mermaid olivetti org-alert org-bullets
+     org-contacts org-contrib org-download org-inline-anim org-link-beautify
+     org-present org-roam org-super-agenda ox-twbs ox-twiki show-font
+     simple-httpd solarized-gruvbox-theme solo-jazz-theme spacemacs-theme
+     spacious-padding standard-themes theme-buffet tmr wombag zenburn-theme))
  '(safe-local-variable-values
    '((org-publish-project-alist
       ("org-blog-site" :base-directory "/home/joonas/testwebsite/org/"
@@ -44,3 +46,4 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(org-document-title ((t (:height 1.5 :weight bold)))))
+(put 'narrow-to-region 'disabled nil)

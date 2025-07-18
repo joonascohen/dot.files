@@ -103,13 +103,13 @@ source $ZSH/oh-my-zsh.sh
 alias l='eza -G --icons'
 alias la='eza -a'
 alias ll='eza -lah'
-alias ls='eza --color=auto'
+alias ls='eza'
 alias clock='tty-clock -cst -C1 -S'
 alias nfzf="fzf --preview 'bat --style=numbers --color=always {}' | xargs -n1 nvim"
 alias fzf="fzf --preview 'bat --style=numbers --color=always {}'"
 alias fzf-tmux="fzf-tmux --preview 'bat --style=numbers --color=always {}' | xargs -n1 nvim"
 alias eza="eza --icons -o --git -a"
-alias ls="eza --color=always --long --no-filesize --icons=always --no-time --no-user --no-permissions"
+# alias ls="eza --color=always --long --no-filesize --icons=always --no-time --no-user --no-permissions"
 
 # fzf
 eval "$(fzf --zsh)"
@@ -122,7 +122,7 @@ _fzf_compgen_dir() {
   fd --type=d --hidden --exclude .git . "$1"
 }
 
-export FZF_CTRL_T_OPTS="--preview 'bat -n --color=always {}'"
+export FZF_CTRL_T_OPTS="--border=bold --border=rounded --margin=3% --preview 'bat --color=always {}'"
 export FZF_ALT_C_OPTS="--preview 'eza --tree --color=always {} | head -200'"
 
 # bat theme
@@ -169,3 +169,6 @@ alias redunst="pkill dunst && dunst &"
 # alias for boox stuff
 alias palma="/home/joonas/Documents/Boox/Sync/BooxPalma/"
 alias booxgo="~/Documents/Boox/Sync/BooxGo/"
+
+# alias for arttime
+alias work="~/.scripts/pomo"
