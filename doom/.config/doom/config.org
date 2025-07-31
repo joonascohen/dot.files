@@ -224,6 +224,10 @@ My currrent capture templates. The work log works like the general journal doom 
         (file+olp+datetree "~/org/eating.org")
         "* %U %? :@eatingout:\n:PROPERTIES:\n:EATINGOUT: [X]\n:END:" :kill-buffer t))
   (add-to-list 'org-capture-templates
+      '("l" "watch log" entry
+        (file+olp+datetree "~/org/watches.org")
+        "* %U %^{What Watch?|Frogman|Rangeman|Mudman|Charles Darwin|G-lide|GD-350|Timex|GW-6900|MW240|CA53|F91|B5000|AE158|Seagull|Garmin}" :kill-buffer t))
+  (add-to-list 'org-capture-templates
       '("eb" "breakfast" entry
         (file+olp+datetree "~/org/eating.org")
         "* %U %? :@breakfast:\n:PROPERTIES:\n:BREAKFAST: [X]\n:END:" :kill-buffer t))
