@@ -172,3 +172,5 @@ alias booxgo="~/Documents/Boox/Sync/BooxGo/"
 
 # alias for arttime
 alias work="~/.scripts/pomo"
+
+. "$HOME/.local/share/../bin/env"

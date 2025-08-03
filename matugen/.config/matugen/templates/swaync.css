@@ -1,0 +1,23 @@
+/* Dracula Theme */
+@define-color foreground rgb(248, 248, 242);
+@define-color background rgb(40, 42, 54);
+@define-color background-alpha rgba(40, 42, 54, 0.8);
+@define-color primary {{colors.primary.default.hex}}
+@define-color current-line rgb(68, 71, 90);
+@define-color comment rgb(98, 114, 164);
+/* Apply font to entire notification */
+.notification,
+.notification * {
+  font-family: "Aporetic Serif Bold";
+  font-size: 14px;
+}
+.notification {
+    border-radius: 8px;           /* rounded corners on notification content */
+    border: 2px solid  {{colors.primary.default.hex}};
+    border-radius: 12px;
+    background-color: #282c34;
+    padding: 10px;
+}
+.notification .notification-content {
+  padding: 10px;
+}
