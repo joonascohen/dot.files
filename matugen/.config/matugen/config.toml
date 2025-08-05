@@ -10,7 +10,6 @@ output_path = '~/.config/kitty/themes/colors.conf'
 [templates.gtk3]
 input_path = '~/.config/matugen/templates/gtk-colors.css'
 output_path = '~/.config/gtk-3.0/colors.css'
-post_hook = 'gsettings set org.gnome.desktop.interface gtk-theme ""; gsettings set org.gnome.desktop.interface gtk-theme adw-gtk3-{{mode}}'
 
 [templates.gtk4]
 input_path = '~/.config/matugen/templates/gtk-colors.css'
@@ -19,7 +18,6 @@ output_path = '~/.config/gtk-4.0/colors.css'
 [templates.hyprland]
 input_path = '~/.config/matugen/templates/hyprland-colors.conf'
 output_path = '~/.config/hypr/colors.conf'
-post_hook = 'hyprctl reload'
 
 [templates.alacritty]
 input_path = '~/.config/matugen/templates/colors.toml'
@@ -50,10 +48,6 @@ output_path = '~/.config/qt5ct/colors/matugen.conf'
 input_path = '~/.config/matugen/templates/gtct-colors.conf'
 output_path = '~/.config/qt5ct/colors/matugen.conf'
 
-[templates.pywalfox]
-input_path = '~/.config/matugen/templates/pywalfox-colors.json'
-output_path = '~/.cache/wal/colors.json'
-post_hook = 'pywalfox update'
 
 [templates.rofi]
 input_path = '~/.config/matugen/templates/rofi-colors.rasi'

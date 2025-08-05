@@ -1,0 +1,48 @@
+/* General notification background and text */
+.notification {
+  background-color: #282c34;
+  color: #abb2bf;
+  border-radius: 8px;
+  padding: 10px;
+  font-family: "Noto Sans", sans-serif;
+}
+
+/* Title style */
+.widget-title {
+  font-weight: bold;
+  font-size: 14pt;
+  color: #61afef;
+}
+
+/* Notification summary */
+.widget-summary {
+  font-size: 12pt;
+  margin-top: 4px;
+}
+
+/* Critical urgent notifications */
+.urgency-critical {
+  background-color: #e06c75;
+  color: white;
+  border: 2px solid #be5046;
+}
+
+/* Low urgency notifications */
+.urgency-low {
+  background-color: #98c379;
+  color: black;
+}
+
+/* Clear All button style */
+.widget-clear-all-button {
+  background-color: transparent;
+  border: none;
+  color: #c678dd;
+  cursor: pointer;
+  font-size: 11pt;
+}
+
+/* When button is hovered */
+.widget-clear-all-button:hover {
+  color: #a36acf;
+}

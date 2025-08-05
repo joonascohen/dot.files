@@ -1,0 +1,52 @@
+{
+  "cssFile": "~/.config/swaync/style.css",
+  "positionX": "right",
+  "positionY": "top",
+  "control_center": {
+    "anchor": "right"
+  },
+  "widget-config": {
+  },
+  "scripts": {
+    "play-sound": {
+        "exec": "paplay /usr/share/sounds/freedesktop/stereo/message.oga",
+      "run-on": "receive"
+    }
+  },
+  "widgets": [
+    "title",
+    "inhibitors",
+    "dnd",
+    "mpris",
+    "notifications"
+  ],
+  "widget-config": {
+    "notifications": {
+      "vexpand": false
+    },
+    "title": {
+      "clear-all-button": true,
+      "button-text": "󰆴 Clear"
+    },
+    "inhibitors": {
+      "text": "Inhibitors",
+      "button-text": "Clear All",
+      "clear-all-button": true
+    },
+    "title": {
+      "text": "Notifications",
+      "clear-all-button": false,
+      "button-text": "Clear All"
+    },
+    "dnd": {
+      "text": "Do Not Disturb"
+    },
+    "label": {
+      "max-lines": 5,
+      "text": "Label Text"
+    },
+    "mpris": {
+      "autohide": true
+    }
+  }
+}
