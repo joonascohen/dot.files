@@ -9,7 +9,7 @@
 ;; (setq doom-theme 'doom-gruvbox)
 ;; (setq doom-theme 'ef-duo-light)
 ;; (setq doom-theme 'gruvbox-dark-soft)
-(setq doom-theme 'ef-duo-light)
+(setq doom-theme 'ewal-spacemacs-modern)
 
 (defvar my-current-theme nil
   "Stores the currently active theme for toggling.")
@@ -24,6 +24,14 @@
           'ef-duo-dark))
   (load-theme my-current-theme t)
   (message "Loaded theme: %s" my-current-theme))
+
+(require 'ewal)
+(defun my/ewal-reload-theme ()
+  "Reload pywal colors and reapply ewal theme."
+  (interactive)
+  (ewal-load-colors)
+  (load-theme 'ewal-spacemacs-modern t)
+  (enable-theme 'ewal-spacemacs-modern))
 
 ;; (setq leuven-scale-org-agenda-structure nil)
 ;; (setq leuven-scale-org-document-title nil)
@@ -59,6 +67,8 @@
             " 📅 " year "/" month "/" day   ; e.g., 06/05/2025
             " 🕘 " 24-hours ":" minutes)))) ; e.g., 20:22
   (display-time-mode 1))
+
+(setq org-hide-leading-stars t)
 
 (setq org-directory "~/org/")
 
@@ -156,6 +166,7 @@
                                      (no-delete-other-windows . t)))))
 
 (after! org
+  (setq org-superstar-remove-leading-stars t)
   (add-to-list 'org-capture-templates '("e" "Eating"))
   (add-to-list 'org-capture-templates
       '("eo" "eating out" entry
@@ -618,3 +629,34 @@ Resize window: _h_ left  _j_ down  _k_ up  _l_ right
 (setq ob-mermaid-cli-path "/usr/bin/mmdc")
 
 (require 'org-collector)
+
+(use-package ewal
+  :init (setq ewal-use-built-in-always-p nil
+              ewal-use-built-in-on-failure-p t
+              ewal-built-in-palette "sexy-material"))
+(use-package ewal-spacemacs-themes
+  :init (progn
+          (setq spacemacs-theme-underline-parens t
+                my:rice:font (font-spec
+                              :family "Source Code Pro"
+                              :weight 'semi-bold
+                              :size 11.0))
+          (show-paren-mode +1)
+          (global-hl-line-mode)
+          (set-frame-font my:rice:font nil t)
+          (add-to-list  'default-frame-alist
+                        `(font . ,(font-xlfd-name my:rice:font))))
+  :config (progn
+            (load-theme 'ewal-spacemacs-modern t)
+            (enable-theme 'ewal-spacemacs-modern)))
+(use-package ewal-evil-cursors
+  :after (ewal-spacemacs-themes)
+  :config (ewal-evil-cursors-get-colors
+           :apply t :spaceline t))
+(use-package spaceline
+  :after (ewal-evil-cursors winum)
+  :init (setq powerline-default-separator nil)
+  :config (spaceline-spacemacs-theme))
+(setq ewal-json-file "~/.cache/wal/colors.json")
+
+

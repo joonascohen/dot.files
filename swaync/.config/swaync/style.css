@@ -2,36 +2,37 @@
 @define-color foreground rgb(248, 248, 242);
 @define-color background rgb(40, 42, 54);
 @define-color background-alpha rgba(40, 42, 54, 0.8);
-@define-color primary #95cdf8
+@define-color primary #f3bd6e
 @define-color current-line rgb(68, 71, 90);
 @define-color comment rgb(98, 114, 164);
 /* Apply font to entire notification */
 .notification {
-  border: 3px solid  #95cdf8;
-  color: #95cdf8;
+  border: 3px solid  #f3bd6e;
+  color: #f3bd6e;
   border-radius: 12px;
-  background-color: #00344e;
+  background-color: #442b00;
   padding: 5px;
   font-family: "Atkinson Hyperlegible";
   font-weight: bold;
   font-size: 14px;
   margin: 15px;
 }
+
 .notification .notification-content {
   padding: 10px;
 }
 .widget-title {
   font-weight: bold;
   font-size: 20px;
-  color: #95cdf8;
+  color: #f3bd6e;
 }
 .widget-dnd {
-  color: #95cdf8;
+  color: #f3bd6e;
 }
 .control-center {
-  background-color: #00344e80;
+  background-color: #442b0080;
   border-radius: 12px;                        /* rounded corners on panel */
-  border: 3px solid #95cdf8;
+  border: 3px solid #f3bd6e;
   padding: 15px;                              /* spacing inside the panel */
   margin: 15px;
   width: 400px !important;

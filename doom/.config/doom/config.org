@@ -25,7 +25,7 @@ CLOSED: [2025-06-02 Mon 19:27] SCHEDULED: <2025-06-03 Tue>
 ;; (setq doom-theme 'doom-gruvbox)
 ;; (setq doom-theme 'ef-duo-light)
 ;; (setq doom-theme 'gruvbox-dark-soft)
-(setq doom-theme 'ef-duo-light)
+(setq doom-theme 'ewal-spacemacs-modern)
 #+end_src
 *** Toggle light and dark mode
 #+begin_src emacs-lisp
@@ -43,6 +43,13 @@ CLOSED: [2025-06-02 Mon 19:27] SCHEDULED: <2025-06-03 Tue>
   (load-theme my-current-theme t)
   (message "Loaded theme: %s" my-current-theme))
 
+(require 'ewal)
+(defun my/ewal-reload-theme ()
+  "Reload pywal colors and reapply ewal theme."
+  (interactive)
+  (ewal-load-colors)
+  (load-theme 'ewal-spacemacs-modern t)
+  (enable-theme 'ewal-spacemacs-modern))
 #+end_src
 ** Leuven Specific
 #+begin_src emacs-lisp
@@ -93,6 +100,10 @@ CLOSED: [2025-06-02 Mon 19:27] SCHEDULED: <2025-06-03 Tue>
             " 📅 " year "/" month "/" day   ; e.g., 06/05/2025
             " 🕘 " 24-hours ":" minutes)))) ; e.g., 20:22
   (display-time-mode 1))
+#+end_src
+** Leading stars
+#+begin_src emacs-lisp
+(setq org-hide-leading-stars t)
 #+end_src
 * ORG
 ** Directory
@@ -218,6 +229,7 @@ Enabling the backlinks view through org-roam, toggle with *C-c n l*.
 My currrent capture templates. The work log works like the general journal doom emacs template, where it will add the date and timestamp into a tree, sorted by year -> month -> day. My meeting template takes advantage of org timetracking to track my meeting times. It clocks in when I start the meeting, and clocks out when I close the buffer.
 #+begin_src emacs-lisp
 (after! org
+  (setq org-superstar-remove-leading-stars t)
   (add-to-list 'org-capture-templates '("e" "Eating"))
   (add-to-list 'org-capture-templates
       '("eo" "eating out" entry
@@ -701,6 +713,10 @@ Removes the *~* from org files.
 (package! helm-org-ql)
 (package! show-font)
 (package! tmr)
+(package! ewal)
+(package! ewal-evil-cursors)
+(package! ewal-spacemacs-themes)
+(package! ewal-doom-themes)
 #+end_src
 ** Consult
 #+begin_src emacs-lisp
@@ -838,4 +854,38 @@ Resize window: _h_ left  _j_ down  _k_ up  _l_ right
 ** collector
 #+begin_src emacs-lisp
 (require 'org-collector)
+#+end_src
+** ewal
+#+begin_src emacs-lisp
+(use-package ewal
+  :init (setq ewal-use-built-in-always-p nil
+              ewal-use-built-in-on-failure-p t
+              ewal-built-in-palette "sexy-material"))
+(use-package ewal-spacemacs-themes
+  :init (progn
+          (setq spacemacs-theme-underline-parens t
+                my:rice:font (font-spec
+                              :family "Source Code Pro"
+                              :weight 'semi-bold
+                              :size 11.0))
+          (show-paren-mode +1)
+          (global-hl-line-mode)
+          (set-frame-font my:rice:font nil t)
+          (add-to-list  'default-frame-alist
+                        `(font . ,(font-xlfd-name my:rice:font))))
+  :config (progn
+            (load-theme 'ewal-spacemacs-modern t)
+            (enable-theme 'ewal-spacemacs-modern)))
+(use-package ewal-evil-cursors
+  :after (ewal-spacemacs-themes)
+  :config (ewal-evil-cursors-get-colors
+           :apply t :spaceline t))
+(use-package spaceline
+  :after (ewal-evil-cursors winum)
+  :init (setq powerline-default-separator nil)
+  :config (spaceline-spacemacs-theme))
+(setq ewal-json-file "~/.cache/wal/colors.json")
+#+end_src
+
+#+begin_src emacs-lisp
 #+end_src
