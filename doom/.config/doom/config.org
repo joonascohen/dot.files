@@ -717,6 +717,7 @@ Removes the *~* from org files.
 (package! ewal-evil-cursors)
 (package! ewal-spacemacs-themes)
 (package! ewal-doom-themes)
+(package! hyprlang-ts-mode)
 #+end_src
 ** Consult
 #+begin_src emacs-lisp
@@ -888,4 +889,9 @@ Resize window: _h_ left  _j_ down  _k_ up  _l_ right
 #+end_src
 
 #+begin_src emacs-lisp
+#+end_src
+** hyprland
+#+begin_src emacs-lisp
+(add-to-list 'treesit-language-source-alist
+        '(hyprlang "https://github.com/tree-sitter-grammars/tree-sitter-hyprlang"))
 #+end_src

@@ -48,3 +48,4 @@
 (package! ewal-evil-cursors)
 (package! ewal-spacemacs-themes)
 (package! ewal-doom-themes)
+(package! hyprlang-ts-mode)

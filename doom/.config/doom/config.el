@@ -660,3 +660,6 @@ Resize window: _h_ left  _j_ down  _k_ up  _l_ right
 (setq ewal-json-file "~/.cache/wal/colors.json")
 
 
+
+(add-to-list 'treesit-language-source-alist
+        '(hyprlang "https://github.com/tree-sitter-grammars/tree-sitter-hyprlang"))
