@@ -1,6 +1,9 @@
 # This file contains fish universal variable definitions.
 # VERSION: 3.0
 SETUVAR __fish_initialized:3800
+SETUVAR _fisher_patrickf1_2F_colored__man__pages_2E_fish_files:\x7e/\x2econfig/fish/functions/cless\x2efish\x1e\x7e/\x2econfig/fish/functions/man\x2efish
+SETUVAR _fisher_plugins:patrickf1/colored_man_pages\x2efish
+SETUVAR _fisher_upgraded_to_4_4:\x1d
 SETUVAR fish_color_autosuggestion:brblack
 SETUVAR fish_color_cancel:\x2d\x2dreverse
 SETUVAR fish_color_command:normal
@@ -11,7 +14,7 @@ SETUVAR fish_color_end:green
 SETUVAR fish_color_error:brred
 SETUVAR fish_color_escape:brcyan
 SETUVAR fish_color_history_current:\x2d\x2dbold
-SETUVAR fish_color_host:normal
+SETUVAR fish_color_host:cyan
 SETUVAR fish_color_host_remote:yellow
 SETUVAR fish_color_keyword:normal
 SETUVAR fish_color_match:\x2d\x2dbackground\x3dbrblue

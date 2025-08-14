@@ -1,0 +1,5 @@
+element-icon {
+    size: 64px;    /* Increase to 96px, 128px, etc. as needed */
+    border: 0;
+    margin: 0 10px 0 0;
+}

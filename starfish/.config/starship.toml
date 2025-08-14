@@ -1,0 +1,31 @@
+format = '$username$hostname$directory$character'
+right_format = '$all'
+add_newline = false
+[line_break]
+disabled = true
+[character]
+success_symbol = "[➜](bold green)"
+[cmd_duration]
+min_time = 4
+show_milliseconds = false
+disabled = false
+format = " 🕙 $duration($style) "
+style = "bold italic #87A752"
+[rust]
+disabled = true
+[username]
+show_always = true  # to always show username
+format = "[$user](bold green)"
+[hostname]
+ssh_only = false    # show hostname always (not only on SSH)
+format = "[@$hostname](bold yellow) "
+[nodejs]
+format = ""
+[git_branch]
+format = '[$symbol$branch(:$remote_branch)]($style) '
+[directory]
+truncation_length = 2
+truncation_symbol = '…/'
+
+[directory.substitutions]
+'~/Documents/music' = 'Music Library'
