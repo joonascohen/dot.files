@@ -5,6 +5,7 @@ alias l='eza -G --icons'
 alias la='eza -a'
 alias ll='eza -lah --icons'
 alias ls='eza --color=auto'
+alias git?='clear; git status; git log --oneline -5'
 zoxide init fish | source
 function fish_greeting
     pokemon-colorscripts -r

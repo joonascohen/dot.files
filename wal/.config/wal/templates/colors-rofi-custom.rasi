@@ -1,0 +1,4 @@
+* {
+  foreground: {foreground}
+  background: {background}
+}
