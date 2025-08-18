@@ -1,4 +1,5 @@
-(setq doom-font (font-spec :family "Aporetic Serif Mono" :size 16 :weight 'regular)
+;; (setq doom-font (font-spec :family "Aporetic Serif Mono" :size 16 :weight 'regular)
+(setq doom-font (font-spec :family "Terminus" :size 16 :weight 'Bold)
       doom-variable-pitch-font (font-spec :family "Iosevka Comfy Duo" :size 16 :weight 'medium)
       doom-big-font (font-spec :family "Aporetic Serif" :size 24 :weight 'bold))
 ;; (setq doom-font "Iosevka Term-14")

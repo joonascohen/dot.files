@@ -7,3 +7,5 @@ visualizer_spectrum_smooth_look = yes
 visualizer_spectrum_gain = 1
 visualizer_spectrum_dft_size = 5
 visualizer_look = ▂▅
+fetch_lyrics_for_current_song_in_background = yes
+follow_now_playing_lyrics = yes

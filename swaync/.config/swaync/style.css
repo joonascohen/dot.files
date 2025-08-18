@@ -2,15 +2,15 @@
 @define-color foreground rgb(248, 248, 242);
 @define-color background rgb(40, 42, 54);
 @define-color background-alpha rgba(40, 42, 54, 0.8);
-@define-color primary #95cdf8
+@define-color primary #ffb68d
 @define-color current-line rgb(68, 71, 90);
 @define-color comment rgb(98, 114, 164);
 /* Apply font to entire notification */
 .notification {
-  border: 3px solid  #95cdf8;
-  color: #95cdf8;
+  border: 3px solid  #ffb68d;
+  color: #ffb68d;
   border-radius: 12px;
-  background-color: #00344e;
+  background-color: #532200;
   padding: 5px;
   font-family: "Atkinson Hyperlegible";
   font-weight: bold;
@@ -24,15 +24,15 @@
 .widget-title {
   font-weight: bold;
   font-size: 20px;
-  color: #95cdf8;
+  color: #ffb68d;
 }
 .widget-dnd {
-  color: #95cdf8;
+  color: #ffb68d;
 }
 .control-center {
-  background-color: #00344e80;
+  background-color: #53220080;
   border-radius: 12px;                        /* rounded corners on panel */
-  border: 3px solid #95cdf8;
+  border: 3px solid #ffb68d;
   padding: 15px;                              /* spacing inside the panel */
   margin: 15px;
   width: 400px !important;
