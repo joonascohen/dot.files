@@ -1,9 +1,8 @@
 sw_volume: 100
 audio_device_state:1:My ALSA Device
 audio_device_state:1:Visualizer feed
-state: pause
-current: 3
-time: 67.682
+state: stop
+current: 0
 random: 0
 repeat: 0
 single: 0
@@ -13,22 +12,14 @@ mixrampdb: 0
 mixrampdelay: -1
 lastloadedplaylist: 
 playlist_begin
-0:Soliterre/Noveau Cliche/01 Soliterre - Alive Again.flac
-1:Soliterre/Noveau Cliche/02 Soliterre - Moon Queen.flac
-2:Soliterre/Noveau Cliche/03 Soliterre - Alone in Theory.flac
-3:Soliterre/Noveau Cliche/04 Soliterre - Lonesome No One.flac
-4:Soliterre/Noveau Cliche/05 Soliterre - On and On.flac
-5:Soliterre/Noveau Cliche/06 Soliterre - Strangers.flac
-6:Soliterre/Noveau Cliche/07 Soliterre - Angel Eye.flac
-7:Soliterre/Noveau Cliche/08 Soliterre - Ships.flac
-8:Soliterre/Noveau Cliche/09 Soliterre - Never Remember.flac
-9:Soliterre/Noveau Cliche/10 Soliterre - Vanity.flac
-10:Soliterre/Noveau Cliche/11 Soliterre - Great Divide.flac
-11:Soliterre/Noveau Cliche/12 Soliterre - Angel Eye (Early Version).flac
-12:Soliterre/Noveau Cliche/13 Soliterre - Street Girl.flac
-13:Soliterre/Noveau Cliche/14 Soliterre - Shoulders.flac
-14:Soliterre/Noveau Cliche/15 Soliterre - Down from Heaven.flac
-15:Soliterre/Noveau Cliche/16 Soliterre - Fall Like That.flac
-16:Soliterre/Noveau Cliche/17 Soliterre - Sacrifice Today.flac
-17:Soliterre/Noveau Cliche/18 Soliterre - Walk in My Shadow.flac
+0:Martin Courtney/Many Moons/01 Martin Courtney - Awake.flac
+1:Martin Courtney/Many Moons/02 Martin Courtney - Foto.flac
+2:Martin Courtney/Many Moons/03 Martin Courtney - Vestiges.flac
+3:Martin Courtney/Many Moons/04 Martin Courtney - Before We Begin.flac
+4:Martin Courtney/Many Moons/05 Martin Courtney - Northern Highway.flac
+5:Martin Courtney/Many Moons/06 Martin Courtney - Many Moons.flac
+6:Martin Courtney/Many Moons/07 Martin Courtney - Asleep.flac
+7:Martin Courtney/Many Moons/08 Martin Courtney - Little Blue.flac
+8:Martin Courtney/Many Moons/09 Martin Courtney - Focus.flac
+9:Martin Courtney/Many Moons/10 Martin Courtney - Airport Bar.flac
 playlist_end

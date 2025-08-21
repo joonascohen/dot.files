@@ -1,7 +1,9 @@
 ;; (setq doom-font (font-spec :family "Aporetic Serif Mono" :size 16 :weight 'regular)
 (setq doom-font (font-spec :family "Terminus" :size 16 :weight 'Bold)
-      doom-variable-pitch-font (font-spec :family "Iosevka Comfy Duo" :size 16 :weight 'medium)
-      doom-big-font (font-spec :family "Aporetic Serif" :size 24 :weight 'bold))
+;;      doom-variable-pitch-font (font-spec :family "Iosevka Comfy Duo" :size 16 :weight 'medium)
+      doom-variable-pitch-font (font-spec :family "Runescape Bold 12" :size 12)
+;;      doom-big-font (font-spec :family "Aporetic Serif" :size 24 :weight 'bold))
+      doom-big-font (font-spec :family "envypn" :size 12))
 ;; (setq doom-font "Iosevka Term-14")
 (after! doom-themes
   (setq doom-themes-enable-bold t
@@ -36,8 +38,8 @@
 
 ;; (setq leuven-scale-org-agenda-structure nil)
 ;; (setq leuven-scale-org-document-title nil)
-(setq leuven-scale-outline-headlines nil)
-(setq leuven-dark-scale-outline-headlines nil)
+;; (setq leuven-scale-outline-headlines nil)
+;; (setq leuven-dark-scale-outline-headlines nil)
 
 (setq display-line-numbers-type 'nil)
 (setq line-number-mode nil)
