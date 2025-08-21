@@ -25,7 +25,6 @@ format = ""
 format = '[$symbol$branch(:$remote_branch)]($style) '
 [directory]
 truncation_length = 2
-truncation_symbol = '…/'
 
 [directory.substitutions]
 '~/Documents/music' = 'Music Library'
