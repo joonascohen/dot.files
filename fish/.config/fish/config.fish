@@ -9,6 +9,9 @@ alias git?='clear; git status; git log --oneline -5'
 alias install='sudo pacman -S'
 alias search='sudo pacman -Ss'
 alias info='sudo pacman -Si'
+alias mon='~/.scripts/tmuxmonitoring'
+alias topen='~/.scripts/tmuxopen'
+alias tk='tmux kill-session'
 zoxide init fish | source
 function fish_greeting
     pokemon-colorscripts -r
