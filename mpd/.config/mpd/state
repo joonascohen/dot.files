@@ -2,8 +2,8 @@ sw_volume: 100
 audio_device_state:1:My ALSA Device
 audio_device_state:1:Visualizer feed
 state: pause
-current: 5
-time: 14.827
+current: 17
+time: 1.756
 random: 0
 repeat: 0
 single: 0
@@ -13,14 +13,24 @@ mixrampdb: 0
 mixrampdelay: -1
 lastloadedplaylist: 
 playlist_begin
-0:Martin Courtney/Many Moons/01 Martin Courtney - Awake.flac
-1:Martin Courtney/Many Moons/02 Martin Courtney - Foto.flac
-2:Martin Courtney/Many Moons/03 Martin Courtney - Vestiges.flac
-3:Martin Courtney/Many Moons/04 Martin Courtney - Before We Begin.flac
-4:Martin Courtney/Many Moons/05 Martin Courtney - Northern Highway.flac
-5:Martin Courtney/Many Moons/06 Martin Courtney - Many Moons.flac
-6:Martin Courtney/Many Moons/07 Martin Courtney - Asleep.flac
-7:Martin Courtney/Many Moons/08 Martin Courtney - Little Blue.flac
-8:Martin Courtney/Many Moons/09 Martin Courtney - Focus.flac
-9:Martin Courtney/Many Moons/10 Martin Courtney - Airport Bar.flac
+0:Real Estate/Days/01 Real Estate - Easy.flac
+1:Real Estate/Days/02 Real Estate - Green Aisles.flac
+2:Real Estate/Days/03 Real Estate - It's Real.flac
+3:Real Estate/Days/04 Real Estate - Kinder Blumen.flac
+4:Real Estate/Days/05 Real Estate - Out Of Tune.flac
+5:Real Estate/Days/06 Real Estate - Municipality.flac
+6:Real Estate/Days/07 Real Estate - Wonder Years.flac
+7:Real Estate/Days/08 Real Estate - Three Blocks.flac
+8:Real Estate/Days/09 Real Estate - Younger Than Yesterday.flac
+9:Real Estate/Days/10 Real Estate - All The Same.flac
+10:Real Estate/Atlas/01 Real Estate - Had To Hear.flac
+11:Real Estate/Atlas/02 Real Estate - Past Lives.flac
+12:Real Estate/Atlas/03 Real Estate - Talking Backwards.flac
+13:Real Estate/Atlas/04 Real Estate - April's Song.flac
+14:Real Estate/Atlas/05 Real Estate - The Bend.flac
+15:Real Estate/Atlas/06 Real Estate - Crime.flac
+16:Real Estate/Atlas/07 Real Estate - Primitive.flac
+17:Real Estate/Atlas/08 Real Estate - How Might I Live.flac
+18:Real Estate/Atlas/10 Real Estate - Navigator.flac
+19:Real Estate/Atlas/09 Real Estate - Horizon.flac
 playlist_end
