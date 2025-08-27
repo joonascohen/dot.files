@@ -3,7 +3,7 @@ audio_device_state:1:My ALSA Device
 audio_device_state:1:Visualizer feed
 state: pause
 current: 18
-time: 33.282000000000004
+time: 90.083
 random: 0
 repeat: 0
 single: 0
