@@ -18,7 +18,7 @@ show_always = true  # to always show username
 format = "[$user](bold green)"
 [hostname]
 ssh_only = false    # show hostname always (not only on SSH)
-format = "[@$hostname](bold yellow) "
+format = "[@](bold purple)[$hostname](bold yellow) "
 [nodejs]
 format = ""
 [git_branch]
