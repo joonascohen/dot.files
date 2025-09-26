@@ -12,7 +12,7 @@ alias gl='git log -p '
 
 # pacman alias
 alias install='sudo pacman -S'
-alias search='sudo pacman -Ss'
+alias search="pacman -Slq | fzf --preview 'pacman -Si {}'"
 alias info='sudo pacman -Si'
 alias delete='sudo pacman -R'
 
@@ -35,6 +35,17 @@ function yts
     set query (string join " " $argv)
     yt-dlp "ytsearch10:$query" --flat-playlist --print "%(title)s | %(id)s" \
     | fzf --ansi \
+    | awk -F'|' '{print $2}' \
+    | xargs -I {} mpv "https://www.youtube.com/watch?v={}"
+end
+function ytsi
+    set query (string join " " $argv)
+
+    yt-dlp "ytsearch10:$query" \
+        --print "%(title)s | %(id)s | %(thumbnail)s" \
+    | fzf --ansi --with-nth=1 \
+        --preview='echo {} | awk -F"|" "{print \$3}" | xargs -I {} viu -w 40 -h 20 {}' \
+        --preview-window=right:50%:wrap \
     | awk -F'|' '{print $2}' \
     | xargs -I {} mpv "https://www.youtube.com/watch?v={}"
 end
