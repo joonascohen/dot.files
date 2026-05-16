@@ -5,6 +5,7 @@
 
 set -euo pipefail
 
+DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ACTION=${1:-}
 
 PACKAGES=(
@@ -28,7 +29,7 @@ PACKAGES=(
 
 for pkg in "${PACKAGES[@]}"; do
     echo "stow $ACTION $pkg"
-    stow --target="$HOME" $ACTION "$pkg"
+    stow --dir="$DIR/configs" --target="$HOME" $ACTION "$pkg"
 done
 
 echo "done"
