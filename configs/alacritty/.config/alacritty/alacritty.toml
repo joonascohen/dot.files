@@ -1,14 +1,7 @@
-
-[env]
-TERM = "xterm-256color"
-
-[font]
-size = 16
-
-[font.normal]
-family = "MonoLisa Nerd Font"
-style = "Regular"
-
 [general]
-import = [
-  "~/.config/alacritty/themes/themes/alabaster_dark.toml"]
+import = ["colors.toml"]
+[font]
+normal.family = "Gohufont"
+[window]
+opacity = 0.6
+padding = { x = 15, y = 15 }
