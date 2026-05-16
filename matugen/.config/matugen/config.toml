@@ -1,5 +1,5 @@
 [config.wallpaper]
-command = "swww"
+command = "awww"
 arguments = ["img", "--resize", "stretch", "--transition-type", "center", "--transition-fps", "144", "--transition-step", "255", "--transition-duration", "1"]
 set = true
 
@@ -16,8 +16,8 @@ input_path = '~/.config/matugen/templates/gtk-colors.css'
 output_path = '~/.config/gtk-4.0/colors.css'
 
 [templates.hyprland]
-input_path = '~/.config/matugen/templates/hyprland-colors.conf'
-output_path = '~/.config/hypr/colors.conf'
+input_path = '~/.config/matugen/templates/hyprland-colors.lua'
+output_path = '~/.config/hypr/colors.lua'
 
 [templates.alacritty]
 input_path = '~/.config/matugen/templates/colors.toml'
@@ -60,3 +60,8 @@ output_path = '~/.config/dunst/dunstrc'
 [templates.swaync]
 input_path = '~/.config/matugen/templates/swaync.css'
 output_path = '~/.config/swaync/style.css'
+
+[templates.glava]
+input_path = '~/.config/matugen/templates/glava-bars.glsl'
+output_path = '~/.config/glava/bars.glsl'
+post_hook = "pkill glava; sleep 0.3 && glava &"

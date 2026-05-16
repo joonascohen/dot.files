@@ -1,0 +1,16 @@
+# MPD runtime files
+mpd/.config/mpd/database
+mpd/.config/mpd/pid
+mpd/.config/mpd/state
+
+# Yazi auto-generated theme backups
+yazi/.config/yazi/theme.toml-*
+
+# Log files
+**/*.log
+
+# Backup files
+**/*.bak
+
+# Claude Code local settings
+**/.claude/

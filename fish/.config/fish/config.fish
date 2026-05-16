@@ -30,7 +30,11 @@ alias ts='tmux new-session -s fish'
 alias ns='~/.scripts/notes/gptstats'
 # tree alias
 alias t='eza -T --icons'
-alias fkill='ps -eo pid,comm | fzf -m --nth=2 | awk "{print \$2}" | xargs kill -9'
+alias fkill='ps -eo pid,comm | fzf -m --nth=4 | awk "{print \$2}" | xargs kill -9'
+alias transcribe='~/Documents/transcribe.py'
+alias archive='~/Documents/archive_ux570.py'
+alias wormon='hyprctl eval "hl.monitor({ output = \"DP-2\", mode = \"1720x1440@100.00\", position = \"auto\", scale = \"auto\" })"'
+alias permon='hyprctl eval "hl.monitor({ output = \"DP-2\", mode = \"3440x1440@100.00\", position = \"auto\", scale = \"auto\" })"'
 function yts
     set query (string join " " $argv)
     yt-dlp "ytsearch10:$query" --flat-playlist --print "%(title)s | %(id)s" \
@@ -49,6 +53,26 @@ function ytsi
     | awk -F'|' '{print $2}' \
     | xargs -I {} mpv "https://www.youtube.com/watch?v={}"
 end
+function kokuscan
+    set folder ~/scans/kokuyo/(date +%Y-%m-%d)
+    mkdir -p $folder
+    scanimage -d pixma:04A91912_51AC2E --batch="$folder/scan_%03d.png" --format=png --resolution 600 --batch-prompt -x 148 -y 115
+end
+
+function ccscan
+    set folder ~/scans/cc/(date +%Y-%m-%d)
+    mkdir -p $folder
+    scanimage -d pixma:04A91912_51AC2E --batch="$folder/scan_%03d.png" --format=png --resolution 600 --batch-prompt -x 110 -y 85
+end
+
+function kokuscan-clip
+    scanimage -d pixma:04A91912_51AC2E --format=png --resolution 600 -x 148 -y 115 | wl-copy --type image/png
+end
+
+function ccscan-clip
+    scanimage -d pixma:04A91912_51AC2E --format=png --resolution 600 -x 110 -y 85 | wl-copy --type image/png
+end
+
 # sourcing
 zoxide init fish | source
 function fish_greeting
@@ -78,3 +102,5 @@ set -x FZF_ALT_C_OPTS "--preview 'eza -T --icons --color=auto {} | head -50' --h
 set -x FZF_CTRL_T_OPTS "--preview='bat --style=numbers --color=always {}' --height=100% --bind shift-up:preview-page-up,shift-down:preview-page-down --bind 'ctrl-u:preview-up,ctrl-d:preview-down'"
 
 set -x EDITOR "emacsclient -c"
+
+set -x LD_LIBRARY_PATH /home/joonas/whisper-venv/lib/python3.14/site-packages/nvidia/cublas/lib $LD_LIBRARY_PATH
