@@ -1,10 +1,19 @@
 # My dotfiles
-> Mainly used for Arch Linux
+> Arch Linux — Hyprland/Wayland, fish, neovim
 
-## Instructions
-1. Pull this repo with `git clone https://github.com/joonascohen/dot.files`
-2. Once finished, download packages with `sudo pacman -S <- archpkglist.txt`
-3. Stow dotfiles to relevant folders with `stow *`
-4. Install oh-my-zsh and relevant plugins
+## New machine setup
 
-# TODO
+1. Clone: `git clone https://github.com/joonascohen/dot.files`
+2. Install packages:
+   ```
+   sudo pacman -S - < pkglist/pkgs-native.txt
+   yay -S - < pkglist/pkgs-aur.txt
+   ```
+3. Deploy configs: `cd dot.files && ./stow.sh`
+
+## Updating the package list
+
+```
+pacman -Qqen > pkglist/pkgs-native.txt
+pacman -Qqem > pkglist/pkgs-aur.txt
+```
