@@ -19,6 +19,10 @@ output_path = '~/.config/gtk-4.0/colors.css'
 input_path = '~/.config/matugen/templates/hyprland-colors.lua'
 output_path = '~/.config/hypr/colors.lua'
 
+[templates.hyprlock]
+input_path = '~/.config/matugen/templates/hyprland-colors.conf'
+output_path = '~/.config/hypr/colors.conf'
+
 [templates.alacritty]
 input_path = '~/.config/matugen/templates/colors.toml'
 output_path = '~/.config/alacritty/colors.toml'

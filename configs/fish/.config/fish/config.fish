@@ -37,7 +37,7 @@ alias wormon='hyprctl eval "hl.monitor({ output = \"DP-2\", mode = \"1720x1440@1
 alias permon='hyprctl eval "hl.monitor({ output = \"DP-2\", mode = \"3440x1440@100.00\", position = \"auto\", scale = \"auto\" })"'
 function yts
     set query (string join " " $argv)
-    yt-dlp "ytsearch10:$query" --flat-playlist --print "%(title)s | %(id)s" \
+    yt-dlp --cookies ~/Videos/cookies.txt "ytsearch10:$query" --flat-playlist --print "%(title)s | %(id)s" \
     | fzf --ansi \
     | awk -F'|' '{print $2}' \
     | xargs -I {} mpv "https://www.youtube.com/watch?v={}"
@@ -45,7 +45,7 @@ end
 function ytsi
     set query (string join " " $argv)
 
-    yt-dlp "ytsearch10:$query" \
+    yt-dlp --cookies Videos/cookies.txt "ytsearch10:$query" \
         --print "%(title)s | %(id)s | %(thumbnail)s" \
     | fzf --ansi --with-nth=1 \
         --preview='echo {} | awk -F"|" "{print \$3}" | xargs -I {} viu -w 40 -h 20 {}' \
